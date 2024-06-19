@@ -10,3 +10,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 add_executable(cmake ${SRC_FILES})
 
 target_link_libraries(cmake sfml-system sfml-window sfml-graphics)
+target_include_directories(cmake PRIVATE include)

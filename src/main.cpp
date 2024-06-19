@@ -1,5 +1,5 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include "AnimatedSprite.h"
 #include "test.h"
 
 int main() {
