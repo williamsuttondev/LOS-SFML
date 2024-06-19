@@ -23,8 +23,8 @@ def initArgs() -> argparse.ArgumentParser:
     parser.add_argument('-o', '--overwrite',   action="store_true")
     parser.add_argument('-c', '--constructor', action="store_true")
     parser.add_argument('-ip','--ignorePath',  action="store_true")
-
-
+    parser.add_argument('-f','--functions',    nargs='+')
+    parser.add_argument('-m','--members',      nargs='+')
     
     return parser
 
@@ -40,22 +40,41 @@ def writeHeader(args):
             else:
                 file.write(f"class {args.ClassName}" + "{\n\n")
             
-            file.write(f"private:\n")
-            file.write(f"\npublic:\n")
+            file.write(f"private:\n\n")
+
+            for member in args.members:
+                file.write(f"{member};\n")
+
+            file.write(f"\npublic:\n\n")
 
             if(args.constructor):
                 file.write(f"\n\t{args.ClassName}()" + "{\n\n\t}\n")
 
-            file.write("}")
+            writeFunctions(file,args,True)
+
+            file.write("};")
 
 def writeSource(args):
-
 
     if os.path.exists(f"{src_path}{args.ClassName}.cpp") and args.overwrite or not os.path.exists(f"{src_path}{args.ClassName}.cpp"):
 
         with open(f"{src_path}{args.ClassName}.cpp",'w') as file:
-            file.write(f'"#include {header_path}{args.ClassName}.h"\n\n')
-            file.write("// ?")
+            
+            file.write(f'#include "../{header_path}{args.ClassName}.h"\n\n')
+            
+            writeFunctions(file,args,False)
+
+
+def writeFunctions(file,args,header):
+
+    for function in args.functions:
+        _type = function.split(" ")[0]
+        _declaration = function.replace(_type,"",1)[1:]
+
+        func = f"{_type} {args.ClassName}::{_declaration}" + "{\n\n}" + "\n\n" if not header else f"\t{_type} {_declaration};\n\n"
+
+        file.write(func)
+   
 
 def checkPaths(args):
     global header_path
@@ -74,15 +93,20 @@ def checkPaths(args):
     src_path    += '/'
 
 def defineAlias(args):
-
+    """
+        @author:        Barnold8
+        @description:   Defines an alias for a Linux user given their given alias path and possible custom alias name
+    
+    """
     aliasDefinition = args.alias
-    script_path     = file_path = os.path.realpath(__file__)
+    script_path     = os.path.realpath(__file__)
     alias_name      = "ClassGen" if args.aliasName == None or len(args.aliasName) == 0 else args.aliasName
 
     if aliasDefinition != None and len(aliasDefinition) != 0:
         if os.path.exists(aliasDefinition):
             with open(aliasDefinition,"a") as file:
-                file.write(f'\nalias {alias_name}="python {script_path}"')
+                file.write(f'\nalias {alias_name}="python ~/{script_path}"')
+     
 
 def main() -> int:
 
@@ -104,6 +128,7 @@ def main() -> int:
     writeSource(args)
 
     ## Generate class
+
 
     return 0
 
