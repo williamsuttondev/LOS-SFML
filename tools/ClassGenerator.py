@@ -8,23 +8,20 @@ header_path = ""
 src_path = ""
 
 def initArgs() -> argparse.ArgumentParser:
-    """
 
-
-    """
     parser = argparse.ArgumentParser(prog="ClassGenerator", description="This script automates class generation for c++ programs. It is intended for those who don't use IDEs to automatically generate class files.")
 
-    parser.add_argument('-cl', '--ClassName')
-    parser.add_argument('-i', '--inheritance', help="foobar")
-    parser.add_argument('-hp','--headerPath')
-    parser.add_argument('-sp','--sourcePath')
-    parser.add_argument('-a', '--alias')
-    parser.add_argument('-an','--aliasName')
-    parser.add_argument('-o', '--overwrite',   action="store_true")
-    parser.add_argument('-c', '--constructor', action="store_true")
-    parser.add_argument('-ip','--ignorePath',  action="store_true")
-    parser.add_argument('-f','--functions',    nargs='+')
-    parser.add_argument('-m','--members',      nargs='+')
+    parser.add_argument('-cl','--ClassName',                            help="Specifies the class name to generate with (this is needed to actually make the class)")
+    parser.add_argument('-i', '--inheritance',                          help="Adds a class to inherit from for the class being generated")
+    parser.add_argument('-hp','--headerPath',                           help="Specifies a path to put the header file for the class, if it's not specified, the default folder 'headers' will be generated relatively to the script execution location.")
+    parser.add_argument('-sp','--sourcePath',                           help="Specifies a path to put the source file for the class, if it's not specified, the default folder 'src' will be generated relatively to the script execution location.")
+    parser.add_argument('-a', '--alias',                                help="This takes the location of a Linux terminal config file. It is one part of a two parter command combo. This combo makes an alias to run this script such that it can be ran anywhere.")
+    parser.add_argument('-an','--aliasName',                            help="This is the custom name for a Linux alias. It is one part of a two parter command combo. This combo makes an alias to run this script such that it can be ran anywhere.")
+    parser.add_argument('-o', '--overwrite',    action="store_true",    help="This tells the script to overwrite the header and source file directly, if this isn't enabled and an existing class is picked at the same directory, it will not be overwritten. I did this as a safety net.")
+    parser.add_argument('-c', '--constructor',  action="store_true",    help="This tells the script to write a default constructor in the class header")
+    parser.add_argument('-ip','--ignorePath',   action="store_true",    help="This tells the script to not use any paths for the header and source file respectively, the files will be generated at the execution location of the script.")
+    parser.add_argument('-f', '--functions',    nargs='+',              help="This is a flag to enter an array of functions to a class. This would look something like " + "--functions 'void foo(int x, int y)' 'int bar(float f)'")
+    parser.add_argument('-m', '--members',      nargs='+',              help="This is a flag to enter an array of class members to a class. This would look something like " + "--members 'int x' 'int y'")
     
     return parser
 
@@ -42,8 +39,9 @@ def writeHeader(args):
             
             file.write(f"private:\n\n")
 
-            for member in args.members:
-                file.write(f"{member};\n")
+            if  args.members != None:
+                for member in args.members:
+                    file.write(f"{member};\n")
 
             file.write(f"\npublic:\n\n")
 
