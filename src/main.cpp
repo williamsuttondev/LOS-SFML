@@ -1,6 +1,16 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 int main() {
-    printf("Hello world.\n");
-    return 0;
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Empty black box.");
+    sf::Event event;
+    while(window.isOpen()) {
+        while(window.pollEvent(event)) {
+            if(event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+        window.clear();
+        window.display();
+    }
 }
