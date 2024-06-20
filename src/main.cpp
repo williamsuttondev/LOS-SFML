@@ -1,10 +1,7 @@
 #include <iostream>
 #include "AnimatedSprite.h"
-#include "test.h"
-
+#include "SpriteSheetActionParser.h"
 int main() {
-    test test1;
-    test1.sayHello();
     sf::RenderWindow window(sf::VideoMode(800, 600), "Empty black box.");
     sf::Event event;
     while(window.isOpen()) {
