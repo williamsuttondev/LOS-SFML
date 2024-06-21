@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "AnimatedSprite.h"
+#include "SceneObject.h"
 
 /**
  * @class RenderLoop
@@ -27,6 +28,8 @@ public:
      * @brief Starts the render loop, keeping the application running until a termination event occurs.
      */
     void run();
+
+    void addObject(SceneObject* obj);
 
 private:
     /**
@@ -56,4 +59,5 @@ private:
     sf::Texture m_texture;          ///< The texture applied to the animated sprite.
     sf::Clock m_clock;              ///< Clock used to measure time between frames.
     sf::Time m_frameTime;           ///< Time duration of each frame to maintain constant FPS.
+    std::vector<SceneObject*> m_sceneObjects;
 };
