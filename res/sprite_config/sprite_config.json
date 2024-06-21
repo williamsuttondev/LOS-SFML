@@ -12,7 +12,7 @@
             "startPosition": { "x": 0, "y": 138 }
         },
         {
-            "name": "walk-left",
+            "name": "walk-right",
             "frameCount": 6,
             "startPosition": { "x": 0, "y": 276 }
         },
