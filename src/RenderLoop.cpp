@@ -6,7 +6,7 @@ RenderLoop::RenderLoop(unsigned int fps)
       frameTime(sf::seconds(1.0f / fps)) {
     sf::Texture texture;
     // Texture goes here just as an example.
-    if (!texture.loadFromFile("res/sprite_config/texture.png")) {
+    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
         std::cerr << "Error loading texture" << std::endl;
     }
     animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
@@ -38,6 +38,7 @@ void RenderLoop::update() {
 
 void RenderLoop::render() {
     window.clear();
+    window.draw(*animatedSprite);
     window.display();
     sf::sleep(frameTime - clock.getElapsedTime());
     clock.restart();
