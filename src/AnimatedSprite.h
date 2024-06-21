@@ -12,4 +12,5 @@ public:
 private:
     std::vector<AnimatedSpriteConfig> m_spriteConfigs;
     int m_currentFrame;
+    AnimatedSpriteConfig* m_currentConfig;
 };

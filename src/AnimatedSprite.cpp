@@ -1,11 +1,11 @@
 // AnimatedSprite.cpp
 #include "AnimatedSprite.h"
 #include "SpriteSheetActionParser.h"
-AnimatedSprite::AnimatedSprite(std::string_view filename, const sf::Texture& texture) : sf::Sprite(texture) {
+AnimatedSprite::AnimatedSprite(std::string_view filename, const sf::Texture& texture)
+    : sf::Sprite(texture), m_currentFrame(0), m_currentConfig(nullptr) {
     m_spriteConfigs = SpriteSheetActionParser::getInstance().parseConfig(filename);
-    m_currentFrame = 0;
     if (!m_spriteConfigs.empty()) {
-        setAction(m_spriteConfigs[0].getActionName());
+        setAction(m_spriteConfigs[2].getActionName());  // Setting initial action - assuming index 2 is valid
     }
 }
 
@@ -16,25 +16,25 @@ void AnimatedSprite::setAction(std::string_view actionName) {
                            });
 
     if (it != m_spriteConfigs.end()) {
-        const sf::Vector2i startCoord = it->getStartCoords();
-        const sf::Vector2i rectSize = it->getRectSize();
+        m_currentConfig = &(*it);  // Store the pointer to the current config
+        const sf::Vector2i startCoord = m_currentConfig->getStartCoords();
+        const sf::Vector2i rectSize = m_currentConfig->getRectSize();
         setTextureRect(sf::IntRect(startCoord.x, startCoord.y, rectSize.x, rectSize.y));
+        m_currentFrame = 0;  // Reset frame when action changes
     }
 }
 
 void AnimatedSprite::incrementFrame() {
-    if (m_spriteConfigs.empty()) return;
+    if (m_spriteConfigs.empty() || m_currentConfig == nullptr) return;
 
-    const auto& currentConfig = m_spriteConfigs.front();
-    
     ++m_currentFrame;
-    if (m_currentFrame >= currentConfig.getWrapNumber()) {
+    if (m_currentFrame >= m_currentConfig->getWrapNumber()) {
         m_currentFrame = 0; // wraps around
     }
 
     // Calculate new texture rectangle for the sprite
-    const sf::Vector2i startCoord = currentConfig.getStartCoords();
-    const sf::Vector2i rectSize = currentConfig.getRectSize();
+    const sf::Vector2i startCoord = m_currentConfig->getStartCoords();
+    const sf::Vector2i rectSize = m_currentConfig->getRectSize();
     const int newLeft = startCoord.x + (rectSize.x * m_currentFrame);
 
     setTextureRect(sf::IntRect(newLeft, startCoord.y, rectSize.x, rectSize.y));
