@@ -2,21 +2,21 @@
 #include <iostream>
 
 RenderLoop::RenderLoop(unsigned int fps)
-    : window(sf::VideoMode(800, 600), "Empty black box."),
-      frameTime(sf::seconds(1.0f / fps)) {
+    : m_window(sf::VideoMode(800, 600), "Empty black box."),
+      m_frameTime(sf::seconds(1.0f / fps)) {
     // Texture goes here just as an example.
-    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+    if (!m_texture.loadFromFile("res/sprite_config/sprite.png")) {
         std::cerr << "Error loading texture" << std::endl;
     }
-    animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+    m_animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", m_texture);
 }
 
 RenderLoop::~RenderLoop() {
-    delete animatedSprite;
+    delete m_animatedSprite;
 }
 
 void RenderLoop::run() {
-    while (window.isOpen()) {
+    while (m_window.isOpen()) {
         handleEvents();
         update();
         render();
@@ -24,21 +24,21 @@ void RenderLoop::run() {
 }
 
 void RenderLoop::handleEvents() {
-    while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
+    while (m_window.pollEvent(m_event)) {
+        if (m_event.type == sf::Event::Closed) {
+            m_window.close();
         }
     }
 }
 
 void RenderLoop::update() {
-    animatedSprite->incrementFrame();
+    m_animatedSprite->incrementFrame();
 }
 
 void RenderLoop::render() {
-    window.clear();
-    window.draw(*animatedSprite);
-    window.display();
-    sf::sleep(frameTime - clock.getElapsedTime());
-    clock.restart();
+    m_window.clear();
+    m_window.draw(*m_animatedSprite);
+    m_window.display();
+    sf::sleep(m_frameTime - m_clock.getElapsedTime());
+    m_clock.restart();
 }

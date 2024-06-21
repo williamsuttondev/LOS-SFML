@@ -13,10 +13,10 @@ private:
     void update();
     void render();
 
-    sf::RenderWindow window;
-    sf::Event event;
-    AnimatedSprite* animatedSprite;
-    sf::Texture texture;
-    sf::Clock clock;
-    sf::Time frameTime;
+    sf::RenderWindow m_window;
+    sf::Event m_event;
+    AnimatedSprite* m_animatedSprite;
+    sf::Texture m_texture;
+    sf::Clock m_clock;
+    sf::Time m_frameTime;
 };
