@@ -1,16 +1,9 @@
-#include <iostream>
-#include "AnimatedSprite.h"
-#include "SpriteSheetActionParser.h"
+#include "RenderLoop.h"
+
+#define FPS 60
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Empty black box.");
-    sf::Event event;
-    while(window.isOpen()) {
-        while(window.pollEvent(event)) {
-            if(event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-        window.clear();
-        window.display();
-    }
+    RenderLoop renderLoop(FPS);
+    renderLoop.run();
+    return 0;
 }
