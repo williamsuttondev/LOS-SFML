@@ -4,7 +4,6 @@
 RenderLoop::RenderLoop(unsigned int fps)
     : window(sf::VideoMode(800, 600), "Empty black box."),
       frameTime(sf::seconds(1.0f / fps)) {
-    sf::Texture texture;
     // Texture goes here just as an example.
     if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
         std::cerr << "Error loading texture" << std::endl;

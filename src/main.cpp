@@ -1,6 +1,6 @@
 #include "RenderLoop.h"
 
-#define FPS 60
+#define FPS 12
 
 int main() {
     RenderLoop renderLoop(FPS);

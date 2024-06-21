@@ -16,6 +16,7 @@ private:
     sf::RenderWindow window;
     sf::Event event;
     AnimatedSprite* animatedSprite;
+    sf::Texture texture;
     sf::Clock clock;
     sf::Time frameTime;
 };
