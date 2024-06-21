@@ -1,8 +1,7 @@
 // AnimatedSprite.cpp
 #include "AnimatedSprite.h"
 #include "SpriteSheetActionParser.h"
-
-AnimatedSprite::AnimatedSprite(std::string_view filename) {
+AnimatedSprite::AnimatedSprite(std::string_view filename, const sf::Texture& texture) : sf::Sprite(texture) {
     m_spriteConfigs = SpriteSheetActionParser::getInstance().parseConfig(filename);
     m_currentFrame = 0;
     if (!m_spriteConfigs.empty()) {

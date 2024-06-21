@@ -7,7 +7,7 @@
 class AnimatedSprite : public sf::Sprite {
 public:
     void setAction(std::string_view actionName);
-    AnimatedSprite(std::string_view filename);
+    AnimatedSprite(std::string_view filename, const sf::Texture& texture);
     void incrementFrame();
 private:
     std::vector<AnimatedSpriteConfig> m_spriteConfigs;

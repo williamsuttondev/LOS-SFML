@@ -3,8 +3,14 @@
 
 RenderLoop::RenderLoop(unsigned int fps)
     : window(sf::VideoMode(800, 600), "Empty black box."),
-      animatedSprite(new AnimatedSprite("res/sprite_config/sprite_config.json")),
-      frameTime(sf::seconds(1.0f / fps)) {}
+      frameTime(sf::seconds(1.0f / fps)) {
+    sf::Texture texture;
+    // Texture goes here just as an example.
+    if (!texture.loadFromFile("res/sprite_config/texture.png")) {
+        std::cerr << "Error loading texture" << std::endl;
+    }
+    animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+}
 
 RenderLoop::~RenderLoop() {
     delete animatedSprite;
@@ -28,7 +34,6 @@ void RenderLoop::handleEvents() {
 
 void RenderLoop::update() {
     animatedSprite->incrementFrame();
-    std::cout << "FPS Test" << std::endl;
 }
 
 void RenderLoop::render() {
