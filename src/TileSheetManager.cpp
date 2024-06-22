@@ -5,8 +5,6 @@
 #include <iostream>
 #include "TileSheetManager.h"
 
-void printXY(int x, int y){std::cout << "x: " << x << " | y: "<< y << std::endl;}
-
 
 std::vector<sf::Texture> TileSheetManager::generateTileMapFromImage(sf::Image& tileSheet, int tileWidth, int tileHeight){
 
