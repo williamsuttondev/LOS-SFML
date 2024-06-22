@@ -61,6 +61,19 @@
         "iomanip": "cpp",
         "ranges": "cpp",
         "sstream": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "charconv": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "format": "cpp",
+        "future": "cpp",
+        "mutex": "cpp",
+        "span": "cpp",
+        "stdfloat": "cpp",
+        "text_encoding": "cpp",
+        "variant": "cpp"
     }
 }
