@@ -10,6 +10,25 @@ std::vector<sf::Texture> TileSheetManager::generateTileMapFromImage(sf::Image& t
 
     std::vector<sf::Texture> textures;
 
+
+    int x_size = tileSheet.getSize().x / tileWidth;
+    int y_size = tileSheet.getSize().y / tileHeight;
+    
+    if(tileSheet.getSize().x % tileWidth != 0 ){
+        std::cout << "Temporary error message, width does not divide into image width equally" << std::endl;
+    }
+
+    if(tileSheet.getSize().y % tileHeight != 0){
+        std::cout << "Temporary error message, height does not divide into image height equally" << std::endl;
+    }
+
+
+    int x_size = tileSheet.getSize().x / tileWidth;
+    int y_size = tileSheet.getSize().y / tileHeight;
+
+
+    
+
     
     return textures;
 
