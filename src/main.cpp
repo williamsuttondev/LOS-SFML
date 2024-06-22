@@ -5,7 +5,24 @@
 #define FPS 12
 
 void playerControlFunction(SceneObject& obj) {
-    // Do nothing for now.
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 20, obj.getAnimatedSprite()->getPosition().y);
+        obj.getAnimatedSprite()->setAction("walk-right");
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 20, obj.getAnimatedSprite()->getPosition().y);
+        obj.getAnimatedSprite()->setAction("walk-left");
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 20);
+        obj.getAnimatedSprite()->setAction("walk-away");
+
+    }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 20);
+        obj.getAnimatedSprite()->setAction("walk-towards");
+
+    }
 }
 
 void cleanup(std::vector<SceneObject*>& objects) {
