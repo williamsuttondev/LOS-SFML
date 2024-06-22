@@ -2,17 +2,22 @@
 #include <iostream>
 
 RenderLoop::RenderLoop(unsigned int fps)
-    : m_window(sf::VideoMode(800, 600), "Empty black box."),
+    : m_window(sf::VideoMode(800, 600), "LOS-SFML"),
       m_frameTime(sf::seconds(1.0f / fps)) {
-    // Texture goes here just as an example.
-    if (!m_texture.loadFromFile("res/sprite_config/sprite.png")) {
-        std::cerr << "Error loading texture" << std::endl;
-    }
-    m_animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", m_texture);
 }
 
 RenderLoop::~RenderLoop() {
-    delete m_animatedSprite;
+    for (SceneObject* obj : m_sceneObjects) {
+        delete obj;
+    }
+}
+
+std::vector<SceneObject*>& RenderLoop::getSceneObjects() {
+    return this->m_sceneObjects;
+}
+
+void RenderLoop::addObject(SceneObject* obj) {
+    m_sceneObjects.push_back(obj);
 }
 
 void RenderLoop::run() {
@@ -25,19 +30,39 @@ void RenderLoop::run() {
 
 void RenderLoop::handleEvents() {
     while (m_window.pollEvent(m_event)) {
-        if (m_event.type == sf::Event::Closed) {
-            m_window.close();
+        switch (m_event.type) {
+            case sf::Event::Closed:
+                m_window.close();
+                break;
+            default:
+                break;
+        }
+    }
+
+    for (SceneObject* obj : m_sceneObjects) {
+        if(obj->isPlayerControlled()) {
+            obj->cllCtrlFunction();
         }
     }
 }
 
 void RenderLoop::update() {
-    m_animatedSprite->incrementFrame();
+    for(SceneObject* obj : m_sceneObjects) {
+        if(obj->getType() == SceneObject::Type::Animated) {
+            obj->getAnimatedSprite()->incrementFrame();
+        }
+    }
 }
 
 void RenderLoop::render() {
     m_window.clear();
-    m_window.draw(*m_animatedSprite);
+    for (SceneObject* obj : m_sceneObjects) {
+        if(obj->getType() == SceneObject::Type::Static) {
+            m_window.draw(*obj->getSprite());
+        } else {
+            m_window.draw(*obj->getAnimatedSprite());
+        }
+    }
     m_window.display();
     sf::sleep(m_frameTime - m_clock.getElapsedTime());
     m_clock.restart();

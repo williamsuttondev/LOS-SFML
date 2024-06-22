@@ -5,8 +5,12 @@ m_type(Type::Static), m_sprite(sprite), m_playerControlled(playerControlled), m_
 {}
 
 SceneObject::SceneObject(AnimatedSprite* sprite, bool playerControlled, ControlFunction controlFunction) : 
-m_type(Type::Animated), m_animatedSprite(sprite), m_playerControlled(playerControlled)
+m_type(Type::Animated), m_animatedSprite(sprite), m_playerControlled(playerControlled), m_controlFunction(controlFunction)
 {}
+
+SceneObject::Type SceneObject::getType() const {
+    return m_type;
+}
 
 sf::Sprite* SceneObject::getSprite() const { return (m_type == Type::Static) ? m_sprite : nullptr; }
 

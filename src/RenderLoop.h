@@ -31,6 +31,8 @@ public:
 
     void addObject(SceneObject* obj);
 
+    std::vector<SceneObject*>& getSceneObjects();
+
 private:
     /**
      * @brief Handles user input events.
@@ -55,8 +57,6 @@ private:
 
     sf::RenderWindow m_window;      ///< The render window where the game is displayed.
     sf::Event m_event;              ///< The event used to capture window events.
-    AnimatedSprite* m_animatedSprite;///< Pointer to the animated sprite used in the render loop.
-    sf::Texture m_texture;          ///< The texture applied to the animated sprite.
     sf::Clock m_clock;              ///< Clock used to measure time between frames.
     sf::Time m_frameTime;           ///< Time duration of each frame to maintain constant FPS.
     std::vector<SceneObject*> m_sceneObjects;
