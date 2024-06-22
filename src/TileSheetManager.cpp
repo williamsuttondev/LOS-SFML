@@ -30,7 +30,7 @@ std::vector<sf::Texture> TileSheetManager::generateTileMapFromImage(sf::Image& t
 
             int size = 800;
             
-            printXY(x_size*x,y*y_size);
+            
 
             image.create(tileSheet.getSize().x,tileSheet.getSize().y);
             image.copy(tileSheet,0,0,sf::IntRect(x_size*x,y_size*y,x_size,y_size),false);
