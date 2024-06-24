@@ -10,6 +10,10 @@ AnimatedSprite::AnimatedSprite(std::string_view filename, const sf::Texture& tex
     }
 }
 
+AnimatedSpriteConfig* AnimatedSprite::getConfig() const {
+    return m_currentConfig;
+}
+
 void AnimatedSprite::setAction(std::string_view actionName) {
     if (auto it = std::find_if(m_spriteConfigs.begin(), m_spriteConfigs.end(), 
                                [&](const AnimatedSpriteConfig& config) {

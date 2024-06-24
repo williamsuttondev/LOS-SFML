@@ -2,7 +2,7 @@
 #include <iostream>
 
 RenderLoop::RenderLoop(unsigned int fps)
-    : m_window(sf::VideoMode(800, 600), "LOS-SFML"),
+    : m_window(sf::VideoMode(1280, 720), "LOS-SFML"),
       m_frameTime(sf::seconds(1.0f / fps)) {
 }
 

@@ -7,21 +7,27 @@
 void playerControlFunction(SceneObject& obj) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 20, obj.getAnimatedSprite()->getPosition().y);
-        obj.getAnimatedSprite()->setAction("walk-right");
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-right") {
+            obj.getAnimatedSprite()->setAction("walk-right");
+        }
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 20, obj.getAnimatedSprite()->getPosition().y);
-        obj.getAnimatedSprite()->setAction("walk-left");
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-left") {
+            obj.getAnimatedSprite()->setAction("walk-left");
+        }
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 20);
-        obj.getAnimatedSprite()->setAction("walk-away");
-
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-away") {
+            obj.getAnimatedSprite()->setAction("walk-away");
+        }
     }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 20);
-        obj.getAnimatedSprite()->setAction("walk-towards");
-
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-towards") {
+            obj.getAnimatedSprite()->setAction("walk-towards");
+        }
     }
 }
 

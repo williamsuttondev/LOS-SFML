@@ -31,6 +31,8 @@ public:
      */
     void setAction(std::string_view actionName);
 
+    AnimatedSpriteConfig* getConfig() const;
+
     /**
      * @brief Increments the current animation frame.
      * 
@@ -42,4 +44,5 @@ private:
     std::vector<AnimatedSpriteConfig> m_spriteConfigs; ///< A list of sprite configurations for different actions.
     int m_currentFrame; ///< The current frame index of the animation.
     AnimatedSpriteConfig* m_currentConfig; ///< Pointer to the current animation configuration in use.
+
 };
