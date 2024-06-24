@@ -1,19 +1,55 @@
+#include "RenderLoop.h"
+#include "TileSheetManager.h"
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include "test.h"
 
-int main() {
-    test test1;
-    test1.sayHello();
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Empty black box.");
-    sf::Event event;
-    while(window.isOpen()) {
-        while(window.pollEvent(event)) {
-            if(event.type == sf::Event::Closed) {
-                window.close();
-            }
+#define CHARACTER_FPS 12
+
+void playerControlFunction(SceneObject& obj) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 20, obj.getAnimatedSprite()->getPosition().y);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-right") {
+            obj.getAnimatedSprite()->setAction("walk-right");
         }
-        window.clear();
-        window.display();
     }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 20, obj.getAnimatedSprite()->getPosition().y);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-left") {
+            obj.getAnimatedSprite()->setAction("walk-left");
+        }
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 20);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-away") {
+            obj.getAnimatedSprite()->setAction("walk-away");
+        }
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 20);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-towards") {
+            obj.getAnimatedSprite()->setAction("walk-towards");
+        }
+    }
+}
+
+void cleanup(std::vector<SceneObject*>& objects) {
+    for(SceneObject* obj : objects) {
+        if(obj->getType() == SceneObject::Type::Static) {
+            delete obj->getSprite();
+        } else {
+            delete obj->getAnimatedSprite();
+        }
+    }
+}
+int main() {
+    sf::Texture texture;
+    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+        std::cerr << "Error loading texture" << std::endl;
+    }
+    AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+    SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+    RenderLoop renderLoop(CHARACTER_FPS);
+    renderLoop.addObject(sceneObject);
+    renderLoop.run();
+    cleanup(renderLoop.getSceneObjects());
+    return 0;
 }
