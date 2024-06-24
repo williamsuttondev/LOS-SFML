@@ -57,7 +57,7 @@ private:
 
     sf::RenderWindow m_window;      ///< The render window where the game is displayed.
     sf::Event m_event;              ///< The event used to capture window events.
-    sf::Clock m_clock;              ///< Clock used to measure time between frames.
     sf::Time m_frameTime;           ///< Time duration of each frame to maintain constant FPS.
+    sf::Time m_engineTime;
     std::vector<SceneObject*> m_sceneObjects;
 };

@@ -2,7 +2,7 @@
 #include "TileSheetManager.h"
 #include <iostream>
 
-#define FPS 12
+#define CHARACTER_FPS 12
 
 void playerControlFunction(SceneObject& obj) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -47,7 +47,7 @@ int main() {
     }
     AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
     SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
-    RenderLoop renderLoop(FPS);
+    RenderLoop renderLoop(CHARACTER_FPS);
     renderLoop.addObject(sceneObject);
     renderLoop.run();
     cleanup(renderLoop.getSceneObjects());

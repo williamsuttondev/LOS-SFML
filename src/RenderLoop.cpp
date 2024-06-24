@@ -1,10 +1,13 @@
 #include "RenderLoop.h"
 #include <iostream>
 
+#define ENGINE_FPS 60
+
 RenderLoop::RenderLoop(unsigned int fps)
     : m_window(sf::VideoMode(1280, 720), "LOS-SFML"),
       m_frameTime(sf::seconds(1.0f / fps)) {
-}
+        m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
+    }
 
 RenderLoop::~RenderLoop() {
     for (SceneObject* obj : m_sceneObjects) {
@@ -21,9 +24,17 @@ void RenderLoop::addObject(SceneObject* obj) {
 }
 
 void RenderLoop::run() {
+    sf::Clock updateClock; // Clock for tracking the update interval
+    sf::Clock eventClock;
     while (m_window.isOpen()) {
-        handleEvents();
-        update();
+        if(eventClock.getElapsedTime() >= m_engineTime) {
+            handleEvents();
+            eventClock.restart();
+        }
+        if (updateClock.getElapsedTime() >= m_frameTime) {
+            update();
+            updateClock.restart(); // Restart the update clock
+        }
         render();
     }
 }
@@ -64,6 +75,6 @@ void RenderLoop::render() {
         }
     }
     m_window.display();
-    sf::sleep(m_frameTime - m_clock.getElapsedTime());
-    m_clock.restart();
+    //sf::sleep(m_frameTime - m_clock.getElapsedTime());
+    //m_clock.restart();
 }
