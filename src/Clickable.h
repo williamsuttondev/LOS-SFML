@@ -19,7 +19,7 @@ public:
 
     virtual void onClick() = 0; // Enforce implementation 
 
-    virtual void onClick() = 0; // Enforce implementation
+    virtual void onClick(void * funcPtr) = 0; // Enforce implementation for linking function to click event
 
 };
 
