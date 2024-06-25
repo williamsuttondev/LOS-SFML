@@ -9,10 +9,6 @@ class Clickable{
 
 private:
 
-    int m_xPos, m_yPos;
-
-
-
 public:
 
     Clickable(){}
