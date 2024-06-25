@@ -1,8 +1,9 @@
 #include "RenderLoop.h"
 #include "TileSheetManager.h"
 #include <iostream>
-#include "Clickable.h"
-
+#include "ClickableButton.h"
+#include <SFML/Graphics.hpp>
+ 
 
 #define CHARACTER_FPS 12
 
@@ -43,13 +44,6 @@ void cleanup(std::vector<SceneObject*>& objects) {
     }
 }
 
-
-void printSomething(){
-
-    std::cout << "Function pointer function!" << std::endl;
-
-}
-
 int main() {
     // sf::Texture texture;
     // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
@@ -62,4 +56,49 @@ int main() {
     // renderLoop.run();
     // cleanup(renderLoop.getSceneObjects());
     // return 0;
+
+    ClickableButton c = ClickableButton(40,10,"res/sprite_config/sprite.png");
+
+
+    Rectangle r = {40,10,100,100};
+
+    sf::RectangleShape rs(sf::Vector2(r.width,r.height));
+    sf::RectangleShape rs2(sf::Vector2(r.width,r.height));
+
+    rs.setPosition(r.xPos,r.yPos);
+
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+
+    while (window.isOpen())
+    {
+        // Process events
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+ 
+        // Clear screen
+        window.clear();
+ 
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        // std::cout << position.x << "," << position.y << std::endl;
+
+        rs2.setPosition( position.x - r.width/2,position.y-r.height/2);
+
+        // Draw the sprite
+        window.draw(c.getSprite());
+        window.draw(rs);
+        window.draw(rs2);
+
+        if(Colliders::isRectCollision(r,Rectangle(position.x - r.width/2,position.y-r.height/2,r.width,r.height)) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+            std::cout << "Clicked button" << std::endl;
+        }else if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){std::cout << "Not clicked it" << std::endl;}
+
+        // Update the window
+        window.display();
+    }
+
 }

@@ -13,8 +13,8 @@ class Colliders{
 
 public:
 
-    bool isRectCollision(Rectangle r1, Rectangle r2);
+    static bool isRectCollision(Rectangle r1, Rectangle r2);
 
-    bool isCircleCollision(Circle c1, Circle c2);
+    static bool isCircleCollision(Circle c1, Circle c2);
 
 };
