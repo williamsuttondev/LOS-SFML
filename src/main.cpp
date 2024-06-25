@@ -1,6 +1,8 @@
 #include "RenderLoop.h"
 #include "TileSheetManager.h"
 #include <iostream>
+#include "Clickable.h"
+
 
 #define CHARACTER_FPS 12
 
@@ -41,15 +43,21 @@ void cleanup(std::vector<SceneObject*>& objects) {
     }
 }
 int main() {
-    sf::Texture texture;
-    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
-        std::cerr << "Error loading texture" << std::endl;
-    }
-    AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
-    SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
-    RenderLoop renderLoop(CHARACTER_FPS);
-    renderLoop.addObject(sceneObject);
-    renderLoop.run();
-    cleanup(renderLoop.getSceneObjects());
-    return 0;
+    // sf::Texture texture;
+    // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+    //     std::cerr << "Error loading texture" << std::endl;
+    // }
+    // AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+    // SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+    // RenderLoop renderLoop(CHARACTER_FPS);
+    // renderLoop.addObject(sceneObject);
+    // renderLoop.run();
+    // cleanup(renderLoop.getSceneObjects());
+    // return 0;
+
+
+    TestClickable t = TestClickable();
+
+    t.onClick();
+
 }
