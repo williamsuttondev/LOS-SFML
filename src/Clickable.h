@@ -19,21 +19,6 @@ public:
 
     virtual void onClick() = 0; // Enforce implementation 
 
-    virtual void onClick(void * funcPtr) = 0; // Enforce implementation for linking function to click event
-
-};
-
-
-
-class TestClickable : public Clickable{
-
-
-public:
-
-    void onClick(){
-
-        std::cout << "Clicked!" << std::endl;
-
-    }
+    virtual void onClick(void (*funcPtr)()) = 0; // Enforce implementation for linking function to click event
 
 };

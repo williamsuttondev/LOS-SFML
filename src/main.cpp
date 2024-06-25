@@ -42,6 +42,14 @@ void cleanup(std::vector<SceneObject*>& objects) {
         }
     }
 }
+
+
+void printSomething(){
+
+    std::cout << "Function pointer function!" << std::endl;
+
+}
+
 int main() {
     // sf::Texture texture;
     // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
@@ -54,10 +62,4 @@ int main() {
     // renderLoop.run();
     // cleanup(renderLoop.getSceneObjects());
     // return 0;
-
-
-    TestClickable t = TestClickable();
-
-    t.onClick();
-
 }
