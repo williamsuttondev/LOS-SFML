@@ -1,6 +1,9 @@
 #include "RenderLoop.h"
 #include "TileSheetManager.h"
 #include <iostream>
+#include "ClickableButton.h"
+#include <SFML/Graphics.hpp>
+ 
 
 #define CHARACTER_FPS 12
 
@@ -40,6 +43,7 @@ void cleanup(std::vector<SceneObject*>& objects) {
         }
     }
 }
+
 int main() {
     sf::Texture texture;
     if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
