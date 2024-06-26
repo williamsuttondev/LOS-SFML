@@ -7,12 +7,27 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "res/Texture-Tileset/tx-plant-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-player-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-props-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
     },
     "last.imagePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture",
     "openFiles": [
     ],
     "project": "map-editor.tiled-project",
     "recentFiles": [
+        "res/Texture-Tileset/tx-props-map.tsx",
+        "res/Texture-Tileset/tx-player-map.tsx",
+        "res/Texture-Tileset/tx-plant-map.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }
