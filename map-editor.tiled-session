@@ -7,6 +7,10 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "res/Texture-Tileset/tx-plant-map.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -18,13 +22,41 @@
         "res/Texture-Tileset/tx-props-map.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-shadow-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-stone-ground-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-struct-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-wall-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "last.imagePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture",
+    "map.height": 29,
+    "map.width": 40,
     "openFiles": [
     ],
     "project": "map-editor.tiled-project",
     "recentFiles": [
+        "res/Texture-Tileset/tx-wall-tilesheet.tsx",
+        "res/Texture-Tileset/tx-stone-ground-tilesheet.tsx",
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx",
+        "res/Texture-Tileset/tx-struct-tilesheet.tsx",
+        "res/Texture-Tileset/tx-shadow-tilesheet.tsx",
+        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx",
         "res/Texture-Tileset/tx-props-map.tsx",
         "res/Texture-Tileset/tx-player-map.tsx",
         "res/Texture-Tileset/tx-plant-map.tsx"

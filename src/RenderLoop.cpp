@@ -4,7 +4,7 @@
 #define ENGINE_FPS 60
 
 RenderLoop::RenderLoop(unsigned int fps)
-    : m_window(sf::VideoMode(1280, 720), "LOS-SFML"),
+    : m_window(sf::VideoMode(1280, 928), "LOS-SFML"),
       m_frameTime(sf::seconds(1.0f / fps)) {
         m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
     }
