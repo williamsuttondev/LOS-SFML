@@ -16,6 +16,9 @@
                 "y": 280.3030303030305
             }
         },
+        "res/Texture-Tileset/texture-tilesheet.tsx": {
+            "dynamicWrapping": true
+        },
         "res/Texture-Tileset/tx-grass-tilesheet.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -51,10 +54,15 @@
         "res/Texture-Tileset/tx-wall-tilesheet.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "res/Texture-Tilesheet/combined_tilesheet.tsx": {
+            "dynamicWrapping": false
         }
     },
+    "last.exportedFilePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture-Map",
     "last.imagePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture",
     "map.height": 29,
+    "map.lastUsedExportFilter": "All Files (*)",
     "map.lastUsedFormat": "tmx",
     "map.width": 40,
     "openFiles": [
@@ -72,5 +80,6 @@
         "res/Texture-Tileset/tx-player-map.tsx",
         "res/Texture-Tileset/tx-plant-map.tsx"
     ],
-    "tileset.lastUsedFormat": "tsx"
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 0
 }
