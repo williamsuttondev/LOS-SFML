@@ -1,6 +1,7 @@
 #include "RenderLoop.h"
 #include "TileSheetManager.h"
 #include <iostream>
+#include "TMJParser.h"
 
 #define CHARACTER_FPS 12
 
@@ -47,6 +48,7 @@ int main() {
     }
     AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
     SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+    TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
     RenderLoop renderLoop(CHARACTER_FPS);
     renderLoop.addObject(sceneObject);
     renderLoop.run();

@@ -5,7 +5,7 @@
 #include <sstream>
 #include <tinyxml2.h>
 #include <json.hpp>
-
+#include <filesystem>
 
 TMJParser::TMJParser(const std::string& filePath) {
     std::ifstream file(filePath);
@@ -15,7 +15,12 @@ TMJParser::TMJParser(const std::string& filePath) {
 
     file >> m_root;
     file.close();
-    parseTilesets();
+    
+    // Extract base directory from the TMJ file path
+    std::filesystem::path tmjPath(filePath);
+    std::filesystem::path baseDir = tmjPath.parent_path();
+
+    parseTilesets(baseDir);
     parseLayers();
 }
 
@@ -23,10 +28,11 @@ const std::vector<std::vector<sf::Image>>& TMJParser::getLayerImages() const {
     return m_layerImages;
 }
 
-void TMJParser::parseTilesets() {
+void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
     for (const auto& tileset : m_root["tilesets"]) {
         std::string tsxFilePath = tileset["source"].get<std::string>();
-        std::string imageSource = getTilesetImageSource(tsxFilePath);
+        std::filesystem::path tsxFullPath = baseDir / tsxFilePath;
+        std::string imageSource = getTilesetImageSource(tsxFullPath.string());
         m_tilesetSources.push_back(imageSource);
         m_firstGids.push_back(tileset["firstgid"].get<int>());
     }
@@ -107,5 +113,9 @@ std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
         throw std::runtime_error("No source attribute found in image element of TSX file: " + tsxFilePath);
     }
 
-    return std::string(source);
+    // Get the base directory of the TSX file
+    std::filesystem::path tsxPath(tsxFilePath);
+    std::filesystem::path imagePath = tsxPath.parent_path() / source;
+
+    return imagePath.string();
 }

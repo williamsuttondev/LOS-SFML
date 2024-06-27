@@ -19,10 +19,10 @@
         },
         "res/Texture-Map/tile-map.tmj": {
             "scale": 0.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 564,
-                "y": 599
+                "x": 560,
+                "y": 597
             }
         },
         "res/Texture-Map/tile-map.tmx": {
@@ -95,7 +95,7 @@
     "last.exportedFilePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture-Map",
     "last.imagePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture",
     "map.height": 29,
-    "map.lastUsedExportFilter": "All Files (*)",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "map.width": 40,
     "openFiles": [

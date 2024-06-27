@@ -16,7 +16,7 @@ private:
     std::vector<int> m_firstGids;
     std::vector<std::vector<sf::Image>> m_layerImages;
 
-    void parseTilesets();
+    void parseTilesets(const std::filesystem::path& baseDir);
     void parseLayers();
     void parseTileLayer(const nlohmann::json& layer);
     std::string getTilesetSource(int tileID);
