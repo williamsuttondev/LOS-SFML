@@ -3,11 +3,13 @@
 
 #define ENGINE_FPS 60
 
-RenderLoop::RenderLoop(unsigned int fps)
+RenderLoop::RenderLoop(unsigned int fps, const TMJParser& tmjParser)
     : m_window(sf::VideoMode(1280, 928), "LOS-SFML"),
-      m_frameTime(sf::seconds(1.0f / fps)) {
-        m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
-    }
+      m_frameTime(sf::seconds(1.0f / fps)),
+      m_tmjParser(tmjParser) {
+    m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
+    loadLayerTextures();
+}
 
 RenderLoop::~RenderLoop() {
     for (SceneObject* obj : m_sceneObjects) {
@@ -67,6 +69,12 @@ void RenderLoop::update() {
 
 void RenderLoop::render() {
     m_window.clear();
+
+    // Draw layer sprites
+    for (const auto& sprite : m_layerSprites) {
+        m_window.draw(sprite);
+    }
+
     for (SceneObject* obj : m_sceneObjects) {
         if(obj->getType() == SceneObject::Type::Static) {
             m_window.draw(*obj->getSprite());
@@ -75,6 +83,17 @@ void RenderLoop::render() {
         }
     }
     m_window.display();
-    //sf::sleep(m_frameTime - m_clock.getElapsedTime());
-    //m_clock.restart();
+}
+
+void RenderLoop::loadLayerTextures() {
+    const auto& layerImages = m_tmjParser.getLayerImages();
+    for (const auto& image : layerImages) {
+        sf::Texture texture;
+        texture.loadFromImage(image);
+        m_layerTextures.push_back(texture);
+
+        sf::Sprite sprite;
+        sprite.setTexture(m_layerTextures.back());
+        m_layerSprites.push_back(sprite);
+    }
 }

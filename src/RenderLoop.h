@@ -1,63 +1,34 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "AnimatedSprite.h"
 #include "SceneObject.h"
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include "TMJParser.h"
 
-/**
- * @class RenderLoop
- * @brief Manages the main render loop, handling events, updating logic, and rendering frames.
- *
- * This class is responsible for managing the main render loop at a specified frames per second (FPS).
- * It handles user inputs, updates the game state, and renders the frames to the screen.
- */
 class RenderLoop {
 public:
-    /**
-     * @brief Construct a new RenderLoop object with a specified frame rate.
-     *
-     * @param fps The frames per second rate at which the render loop runs.
-     */
-    RenderLoop(unsigned int fps);
-
-    /**
-     * @brief Destroy the RenderLoop object.
-     */
+    RenderLoop(unsigned int fps, const TMJParser& tmjParser);
     ~RenderLoop();
-
-    /**
-     * @brief Starts the render loop, keeping the application running until a termination event occurs.
-     */
+    
+    std::vector<SceneObject*>& getSceneObjects();
+    void addObject(SceneObject* obj);
     void run();
 
-    void addObject(SceneObject* obj);
-
-    std::vector<SceneObject*>& getSceneObjects();
-
 private:
-    /**
-     * @brief Handles user input events.
-     *
-     * This method processes all user-generated events such as keyboard and mouse inputs.
-     */
     void handleEvents();
-
-    /**
-     * @brief Updates the game state.
-     *
-     * This method updates the game logic and state during each frame.
-     */
     void update();
-
-    /**
-     * @brief Renders the current frame.
-     *
-     * This method renders the current state of the game to the screen.
-     */
     void render();
-
-    sf::RenderWindow m_window;      ///< The render window where the game is displayed.
-    sf::Event m_event;              ///< The event used to capture window events.
-    sf::Time m_frameTime;           ///< Time duration of each frame to maintain constant FPS.
+    
+    sf::RenderWindow m_window;
+    sf::Event m_event;
+    sf::Time m_frameTime;
     sf::Time m_engineTime;
+    sf::Clock m_clock;
     std::vector<SceneObject*> m_sceneObjects;
+    
+    const TMJParser& m_tmjParser;
+    std::vector<sf::Texture> m_layerTextures;
+    std::vector<sf::Sprite> m_layerSprites;
+
+    void loadLayerTextures();
 };
