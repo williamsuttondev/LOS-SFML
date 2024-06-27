@@ -6,6 +6,7 @@
 #include <tinyxml2.h>
 #include <json.hpp>
 
+
 TMJParser::TMJParser(const std::string& filePath) {
     std::ifstream file(filePath);
     if (!file.is_open()) {
@@ -27,6 +28,7 @@ void TMJParser::parseTilesets() {
         std::string tsxFilePath = tileset["source"].get<std::string>();
         std::string imageSource = getTilesetImageSource(tsxFilePath);
         m_tilesetSources.push_back(imageSource);
+        m_firstGids.push_back(tileset["firstgid"].get<int>());
     }
 }
 
@@ -64,9 +66,7 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
 
 std::string TMJParser::getTilesetSource(int tileID) {
     for (size_t i = 0; i < m_tilesetSources.size(); ++i) {
-        // Assume the firstgid is 1-based and each tileset is sequential
-        // Adjust this logic as per actual TMJ structure and tileset firstgid
-        if (tileID < (i + 1) * 64) {
+        if (tileID >= m_firstGids[i] && (i == m_tilesetSources.size() - 1 || tileID < m_firstGids[i + 1])) {
             return m_tilesetSources[i];
         }
     }

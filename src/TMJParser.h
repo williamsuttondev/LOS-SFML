@@ -13,6 +13,7 @@ public:
 private:
     nlohmann::json m_root;
     std::vector<std::string> m_tilesetSources;
+    std::vector<int> m_firstGids;
     std::vector<std::vector<sf::Image>> m_layerImages;
 
     void parseTilesets();
