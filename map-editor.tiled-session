@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "res/Texture-Map/tile-map.tmj",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -14,6 +15,14 @@
             "viewCenter": {
                 "x": 775.7575757575758,
                 "y": 280.3030303030305
+            }
+        },
+        "res/Texture-Map/tile-map.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 564,
+                "y": 599
             }
         },
         "res/Texture-Map/tile-map.tmx": {
@@ -90,9 +99,11 @@
     "map.lastUsedFormat": "json",
     "map.width": 40,
     "openFiles": [
+        "res/Texture-Map/tile-map.tmj"
     ],
     "project": "map-editor.tiled-project",
     "recentFiles": [
+        "res/Texture-Map/tile-map.tmj",
         "res/Texture-Map/tile-map.tmx",
         "res/Texture-Tileset/texture-tilesheet.tsx",
         "res/Texture-Tilesheet/combined_tilesheet.tsx",
@@ -103,8 +114,7 @@
         "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx",
         "res/Texture-Tileset/tx-grass-tilesheet.tsx",
         "res/Texture-Tileset/tx-props-tilesheet.tsx",
-        "res/Texture-Tileset/tx-plant-tilesheet.tsx",
-        "res/Texture-Tileset/tx-player-tilesheet.tsx"
+        "res/Texture-Tileset/tx-plant-tilesheet.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.type": 0
