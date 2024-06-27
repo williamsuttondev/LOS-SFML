@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(cmake)
+project(LOS-SFML)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -25,8 +25,15 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS "src/*.cpp" "src/*.h" "src/*.hpp")
 # Add executable
 add_executable(cmake ${SRC_FILES})
 
-# Link libraries
+# Link SFML libraries
+find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 target_link_libraries(cmake sfml-system sfml-window sfml-graphics)
+
+# Find and link TinyXML2 using pkg-config
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(TINYXML2 REQUIRED tinyxml2)
+target_include_directories(cmake PRIVATE ${TINYXML2_INCLUDE_DIRS})
+target_link_libraries(cmake ${TINYXML2_LIBRARIES})
 
 # Include directories
 target_include_directories(cmake PRIVATE include)
