@@ -24,7 +24,7 @@ TMJParser::TMJParser(const std::string& filePath) {
     parseLayers();
 }
 
-const std::vector<std::vector<sf::Image>>& TMJParser::getLayerImages() const {
+const std::vector<sf::Image>& TMJParser::getLayerImages() const {
     return m_layerImages;
 }
 
@@ -50,24 +50,31 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
     int width = layer["width"].get<int>();
     int height = layer["height"].get<int>();
     const nlohmann::json& data = layer["data"];
-    std::vector<sf::Image> images;
 
-    for (size_t i = 0; i < data.size(); ++i) {
-        int tileID = data[i].get<int>();
-        if (tileID == 0) {
-            // Empty tile, create a blank image
-            sf::Image image;
-            image.create(32, 32, sf::Color::Transparent);
-            images.push_back(image);
-        } else {
-            // Calculate which tileset the tileID belongs to
+    // Create a large image for the entire layer
+    sf::Image layerImage;
+    layerImage.create(width * 32, height * 32, sf::Color::Transparent);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int index = y * width + x;
+            int tileID = data[index].get<int>();
+
+            if (tileID == 0) {
+                // Skip empty tiles
+                continue;
+            }
+
+            // Determine the source of the tileset for this tile
             std::string tilesetSource = getTilesetSource(tileID);
-            sf::Image image = loadTileImage(tilesetSource, tileID);
-            images.push_back(image);
+            sf::Image tileImage = loadTileImage(tilesetSource, tileID);
+
+            // Draw the tile onto the layer image
+            layerImage.copy(tileImage, x * 32, y * 32);
         }
     }
 
-    m_layerImages.push_back(images);
+    m_layerImages.push_back(layerImage);
 }
 
 std::string TMJParser::getTilesetSource(int tileID) {
@@ -86,9 +93,20 @@ sf::Image TMJParser::loadTileImage(const std::string& tilesetSource, int tileID)
     }
 
     // Calculate the position of the tile in the tileset
+    int firstGid = 1; // Default to 1 if not found (shouldn't typically happen)
+    for (size_t i = 0; i < m_firstGids.size(); ++i) {
+        if (m_tilesetSources[i] == tilesetSource) {
+            firstGid = m_firstGids[i];
+            break;
+        }
+    }
+
+    // Tile indices start from 1 in TMX files, adjust to zero-based index
+    int adjustedTileID = tileID - firstGid;
+    
     int columns = tileset.getSize().x / 32;
-    int row = (tileID - 1) / columns;
-    int col = (tileID - 1) % columns;
+    int row = adjustedTileID / columns;
+    int col = adjustedTileID % columns;
 
     sf::Image tile;
     tile.create(32, 32);

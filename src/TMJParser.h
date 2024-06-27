@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <json.hpp>
@@ -8,13 +8,13 @@
 class TMJParser {
 public:
     TMJParser(const std::string& filePath);
-    const std::vector<std::vector<sf::Image>>& getLayerImages() const;
+    const std::vector<sf::Image>& getLayerImages() const;
 
 private:
     nlohmann::json m_root;
     std::vector<std::string> m_tilesetSources;
     std::vector<int> m_firstGids;
-    std::vector<std::vector<sf::Image>> m_layerImages;
+    std::vector<sf::Image> m_layerImages;
 
     void parseTilesets(const std::filesystem::path& baseDir);
     void parseLayers();
