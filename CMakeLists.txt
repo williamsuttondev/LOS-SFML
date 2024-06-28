@@ -34,6 +34,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML json tinyxml2)
 
+target_include_directories (LOS-SFML PUBLIC ${nlohmann_json_SOURCE_DIR}/include)
 target_link_libraries(LOS-SFML sfml-system sfml-window sfml-graphics tinyxml2)
 
 # Add a custom command to copy the res folder to the build directory
