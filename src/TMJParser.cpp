@@ -50,7 +50,7 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
     int height = layer["height"].get<int>();
     const nlohmann::json& data = layer["data"];
 
-    // Create a large image for the entire layer
+    // Create a large image for the entire layer with transparency
     sf::Image layerImage;
     layerImage.create(width * 32, height * 32, sf::Color::Transparent);
 
@@ -60,7 +60,8 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
             int tileID = data[index].get<int>();
 
             if (tileID == 0) {
-                continue; // Already transparent, no need to set explicitly
+                // Skip empty tiles, already transparent
+                continue;
             }
 
             // Determine the source of the tileset for this tile
@@ -68,7 +69,7 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
             sf::Image tileImage = loadTileImage(tilesetSource, tileID);
 
             // Draw the tile onto the layer image
-            layerImage.copy(tileImage, x * 32, y * 32);
+            layerImage.copy(tileImage, x * 32, y * 32, sf::IntRect(0, 0, 32, 32), true);
         }
     }
 

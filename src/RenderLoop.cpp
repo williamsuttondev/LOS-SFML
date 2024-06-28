@@ -84,12 +84,13 @@ void RenderLoop::render() {
     }
     m_window.display();
 }
-
 void RenderLoop::loadLayerTextures() {
     const auto& layerImages = m_tmjParser.getLayerImages();
     for (const auto& image : layerImages) {
         sf::Texture texture;
-        texture.loadFromImage(image);
+        if (!texture.loadFromImage(image)) {
+            throw std::runtime_error("Unable to load texture from image");
+        }
         m_layerTextures.push_back(texture);
 
         sf::Sprite sprite;
