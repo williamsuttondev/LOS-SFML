@@ -19,10 +19,10 @@
         },
         "res/Texture-Map/tile-map.tmj": {
             "scale": 0.5,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 558,
-                "y": 595
+                "x": 1700,
+                "y": 573
             }
         },
         "res/Texture-Map/tile-map.tmx": {

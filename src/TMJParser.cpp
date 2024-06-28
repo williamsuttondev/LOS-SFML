@@ -60,8 +60,7 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
             int tileID = data[index].get<int>();
 
             if (tileID == 0) {
-                // Skip empty tiles
-                continue;
+                continue; // Already transparent, no need to set explicitly
             }
 
             // Determine the source of the tileset for this tile
@@ -75,6 +74,7 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
 
     m_layerImages.push_back(layerImage);
 }
+
 
 std::string TMJParser::getTilesetSource(int tileID) {
     for (size_t i = 0; i < m_tilesetSources.size(); ++i) {
@@ -100,19 +100,17 @@ sf::Image TMJParser::loadTileImage(const std::string& tilesetSource, int tileID)
         }
     }
 
-    // Tile indices start from 1 in TMX files, adjust to zero-based index
     int adjustedTileID = tileID - firstGid;
-    
     int columns = tileset.getSize().x / 32;
     int row = adjustedTileID / columns;
     int col = adjustedTileID % columns;
 
     sf::Image tile;
-    tile.create(32, 32);
-    tile.copy(tileset, 0, 0, sf::IntRect(col * 32, row * 32, 32, 32));
+    tile.create(32, 32, sf::Color::Transparent); // Ensure transparency
+    tile.copy(tileset, 0, 0, sf::IntRect(col * 32, row * 32, 32, 32), true);
+
     return tile;
 }
-
 std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
     tinyxml2::XMLDocument doc;
     if (doc.LoadFile(tsxFilePath.c_str()) != tinyxml2::XML_SUCCESS) {
