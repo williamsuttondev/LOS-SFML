@@ -23,15 +23,18 @@ FetchContent_Declare(
     GIT_TAG        2.6.1
 )
 FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.11.3
+)
+FetchContent_Declare(
     tinyxml2
     GIT_REPOSITORY https://github.com/leethomason/tinyxml2
     GIT_TAG        10.0.0
 )
-FetchContent_MakeAvailable(SFML tinyxml2)
+FetchContent_MakeAvailable(SFML json tinyxml2)
 
 target_link_libraries(LOS-SFML sfml-system sfml-window sfml-graphics tinyxml2)
-
-target_include_directories(LOS-SFML PRIVATE include)
 
 # Add a custom command to copy the res folder to the build directory
 add_custom_command(

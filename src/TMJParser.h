@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
