@@ -39,8 +39,8 @@ target_link_libraries(LOS-SFML sfml-system sfml-window sfml-graphics tinyxml2)
 
 # Add a custom command to copy the res folder to the build directory
 add_custom_command(
-    TARGET LOS-SFML POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    TARGET LOS-SFML PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
     "${CMAKE_SOURCE_DIR}/res"
     "$<TARGET_FILE_DIR:LOS-SFML>/res"
 )
