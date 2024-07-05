@@ -1,0 +1,121 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "res/Texture-Map/tile-map.tmj",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "res/Texture-Map/tile-map": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 775.7575757575758,
+                "y": 280.3030303030305
+            }
+        },
+        "res/Texture-Map/tile-map.tmj": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 194.33333333333331,
+                "y": 596.8333333333333
+            }
+        },
+        "res/Texture-Map/tile-map.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 568,
+                "y": 559
+            }
+        },
+        "res/Texture-Tileset/texture-tilesheet.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.5
+        },
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-plant-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-plant-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-player-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-player-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-props-map.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-props-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-shadow-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-stone-ground-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-struct-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tileset/tx-wall-tilesheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "res/Texture-Tilesheet/combined_tilesheet.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.5
+        }
+    },
+    "last.exportedFilePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture-Map",
+    "last.imagePath": "/home/william/Documents/Post-Uni/LOS-SFML/res/Texture",
+    "map.height": 29,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.width": 40,
+    "openFiles": [
+        "res/Texture-Map/tile-map.tmj"
+    ],
+    "project": "map-editor.tiled-project",
+    "recentFiles": [
+        "res/Texture-Map/tile-map.tmj",
+        "res/Texture-Map/tile-map.tmx",
+        "res/Texture-Tileset/texture-tilesheet.tsx",
+        "res/Texture-Tilesheet/combined_tilesheet.tsx",
+        "res/Texture-Tileset/tx-wall-tilesheet.tsx",
+        "res/Texture-Tileset/tx-struct-tilesheet.tsx",
+        "res/Texture-Tileset/tx-stone-ground-tilesheet.tsx",
+        "res/Texture-Tileset/tx-shadow-tilesheet.tsx",
+        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx",
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx",
+        "res/Texture-Tileset/tx-props-tilesheet.tsx",
+        "res/Texture-Tileset/tx-plant-tilesheet.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 0
+}

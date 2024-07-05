@@ -3,11 +3,13 @@
 
 #define ENGINE_FPS 60
 
-RenderLoop::RenderLoop(unsigned int fps)
-    : m_window(sf::VideoMode(1280, 720), "LOS-SFML"),
-      m_frameTime(sf::seconds(1.0f / fps)) {
-        m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
-    }
+RenderLoop::RenderLoop(unsigned int fps, const TMJParser& tmjParser)
+    : m_window(sf::VideoMode(1280, 928), "LOS-SFML"),
+      m_frameTime(sf::seconds(1.0f / fps)),
+      m_tmjParser(tmjParser) {
+    m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
+    loadLayerSprites();
+}
 
 RenderLoop::~RenderLoop() {
     for (SceneObject* obj : m_sceneObjects) {
@@ -66,15 +68,26 @@ void RenderLoop::update() {
 }
 
 void RenderLoop::render() {
-    m_window.clear();
+    m_window.clear(sf::Color::Transparent);
+
+    sf::RenderStates states;
+    states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
+
+    // Draw layer sprites
+    for (const auto& sprite : m_layerSprites) {
+        m_window.draw(sprite, states);
+    }
+
     for (SceneObject* obj : m_sceneObjects) {
         if(obj->getType() == SceneObject::Type::Static) {
-            m_window.draw(*obj->getSprite());
+            m_window.draw(*obj->getSprite(), states); // Use blend mode for objects as well
         } else {
-            m_window.draw(*obj->getAnimatedSprite());
+            m_window.draw(*obj->getAnimatedSprite(), states); // Use blend mode for animated objects as well
         }
     }
     m_window.display();
-    //sf::sleep(m_frameTime - m_clock.getElapsedTime());
-    //m_clock.restart();
+}
+
+void RenderLoop::loadLayerSprites() {
+    m_layerSprites = m_tmjParser.getLayerSprites();
 }

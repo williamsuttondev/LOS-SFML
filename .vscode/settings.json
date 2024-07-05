@@ -74,6 +74,9 @@
         "span": "cpp",
         "stdfloat": "cpp",
         "text_encoding": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "bitset": "cpp",
+        "csignal": "cpp",
+        "regex": "cpp"
     }
 }
