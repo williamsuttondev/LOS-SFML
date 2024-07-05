@@ -22,11 +22,11 @@
             }
         },
         "res/Texture-Map/tile-map.tmj": {
-            "scale": 0.5,
+            "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 672,
-                "y": 309
+                "x": 334,
+                "y": 189.5
             }
         },
         "res/Texture-Map/tile-map.tmx": {
