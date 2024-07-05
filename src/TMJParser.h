@@ -19,7 +19,7 @@ private:
 
     void parseTilesets(const std::filesystem::path& baseDir);
     void parseLayers();
-    void parseTileLayer(const nlohmann::json& layer, int layerIndex);
+    void parseTileLayer(const nlohmann::json& layer);
     std::string getTilesetSource(int tileID);
     std::string getTilesetImageSource(const std::string& tsxFilePath);
 };

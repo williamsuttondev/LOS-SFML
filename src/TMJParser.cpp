@@ -44,15 +44,14 @@ void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
 }
 
 void TMJParser::parseLayers() {
-    int layerIndex = 0;
     for (const auto& layer : m_root["layers"]) {
         if (layer["type"].get<std::string>() == "tilelayer") {
-            parseTileLayer(layer, layerIndex++);
+            parseTileLayer(layer);
         }
     }
 }
 
-void TMJParser::parseTileLayer(const nlohmann::json& layer, int layerIndex) {
+void TMJParser::parseTileLayer(const nlohmann::json& layer) {
     int width = layer["width"].get<int>();
     int height = layer["height"].get<int>();
     const nlohmann::json& data = layer["data"];
@@ -66,10 +65,17 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer, int layerIndex) {
                 continue;
             }
 
-            std::string tilesetSource = getTilesetSource(tileID);
-            const sf::Texture& tilesetTexture = m_tilesetTextures[layerIndex];
+            // Determine the correct tileset and texture for the current tileID
+            size_t tilesetIndex = 0;
+            for (size_t i = 0; i < m_firstGids.size(); ++i) {
+                if (tileID >= m_firstGids[i] && (i == m_firstGids.size() - 1 || tileID < m_firstGids[i + 1])) {
+                    tilesetIndex = i;
+                    break;
+                }
+            }
 
-            int firstGid = m_firstGids[layerIndex];
+            const sf::Texture& tilesetTexture = m_tilesetTextures[tilesetIndex];
+            int firstGid = m_firstGids[tilesetIndex];
             int adjustedTileID = tileID - firstGid;
             int columns = tilesetTexture.getSize().x / 32;
             int row = adjustedTileID / columns;
@@ -82,15 +88,6 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer, int layerIndex) {
             m_layerSprites.push_back(sprite);
         }
     }
-}
-
-std::string TMJParser::getTilesetSource(int tileID) {
-    for (size_t i = 0; i < m_tilesetSources.size(); ++i) {
-        if (tileID >= m_firstGids[i] && (i == m_tilesetSources.size() - 1 || tileID < m_firstGids[i + 1])) {
-            return m_tilesetSources[i];
-        }
-    }
-    throw std::runtime_error("Tileset source not found for tileID: " + std::to_string(tileID));
 }
 
 std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
