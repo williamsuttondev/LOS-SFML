@@ -1,9 +1,9 @@
 #pragma once
-#include "AnimatedSprite.h"
-#include "SceneObject.h"
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "TMJParser.h"
+#include "SceneObject.h"
 
 class RenderLoop {
 public:
@@ -18,17 +18,14 @@ private:
     void handleEvents();
     void update();
     void render();
-    
+    void loadLayerSprites();
+
     sf::RenderWindow m_window;
     sf::Event m_event;
     sf::Time m_frameTime;
     sf::Time m_engineTime;
-    sf::Clock m_clock;
-    std::vector<SceneObject*> m_sceneObjects;
-    
-    const TMJParser& m_tmjParser;
-    std::vector<sf::Texture> m_layerTextures;
-    std::vector<sf::Sprite> m_layerSprites;
 
-    void loadLayerTextures();
+    const TMJParser& m_tmjParser;
+    std::vector<SceneObject*> m_sceneObjects;
+    std::vector<sf::Sprite> m_layerSprites;
 };

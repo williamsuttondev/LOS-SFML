@@ -15,7 +15,6 @@ TMJParser::TMJParser(const std::string& filePath) {
     file >> m_root;
     file.close();
     
-    // Extract base directory from the TMJ file path
     std::filesystem::path tmjPath(filePath);
     std::filesystem::path baseDir = tmjPath.parent_path();
 
@@ -23,8 +22,8 @@ TMJParser::TMJParser(const std::string& filePath) {
     parseLayers();
 }
 
-const std::vector<sf::Image>& TMJParser::getLayerImages() const {
-    return m_layerImages;
+const std::vector<sf::Sprite>& TMJParser::getLayerSprites() const {
+    return m_layerSprites;
 }
 
 void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
@@ -32,27 +31,31 @@ void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
         std::string tsxFilePath = tileset["source"].get<std::string>();
         std::filesystem::path tsxFullPath = baseDir / tsxFilePath;
         std::string imageSource = getTilesetImageSource(tsxFullPath.string());
+        
+        sf::Texture texture;
+        if (!texture.loadFromFile(imageSource)) {
+            throw std::runtime_error("Unable to load tileset image: " + imageSource);
+        }
+        m_tilesetTextures.push_back(std::move(texture));
+        
         m_tilesetSources.push_back(imageSource);
         m_firstGids.push_back(tileset["firstgid"].get<int>());
     }
 }
 
 void TMJParser::parseLayers() {
+    int layerIndex = 0;
     for (const auto& layer : m_root["layers"]) {
         if (layer["type"].get<std::string>() == "tilelayer") {
-            parseTileLayer(layer);
+            parseTileLayer(layer, layerIndex++);
         }
     }
 }
 
-void TMJParser::parseTileLayer(const nlohmann::json& layer) {
+void TMJParser::parseTileLayer(const nlohmann::json& layer, int layerIndex) {
     int width = layer["width"].get<int>();
     int height = layer["height"].get<int>();
     const nlohmann::json& data = layer["data"];
-
-    // Create a large image for the entire layer with transparency
-    sf::Image layerImage;
-    layerImage.create(width * 32, height * 32, sf::Color::Transparent);
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
@@ -60,22 +63,26 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
             int tileID = data[index].get<int>();
 
             if (tileID == 0) {
-                // Skip empty tiles, already transparent
                 continue;
             }
 
-            // Determine the source of the tileset for this tile
             std::string tilesetSource = getTilesetSource(tileID);
-            sf::Image tileImage = loadTileImage(tilesetSource, tileID);
+            const sf::Texture& tilesetTexture = m_tilesetTextures[layerIndex];
 
-            // Draw the tile onto the layer image
-            layerImage.copy(tileImage, x * 32, y * 32, sf::IntRect(0, 0, 32, 32), true);
+            int firstGid = m_firstGids[layerIndex];
+            int adjustedTileID = tileID - firstGid;
+            int columns = tilesetTexture.getSize().x / 32;
+            int row = adjustedTileID / columns;
+            int col = adjustedTileID % columns;
+
+            sf::Sprite sprite;
+            sprite.setTexture(tilesetTexture);
+            sprite.setTextureRect(sf::IntRect(col * 32, row * 32, 32, 32));
+            sprite.setPosition(static_cast<float>(x * 32), static_cast<float>(y * 32));
+            m_layerSprites.push_back(sprite);
         }
     }
-
-    m_layerImages.push_back(layerImage);
 }
-
 
 std::string TMJParser::getTilesetSource(int tileID) {
     for (size_t i = 0; i < m_tilesetSources.size(); ++i) {
@@ -86,32 +93,6 @@ std::string TMJParser::getTilesetSource(int tileID) {
     throw std::runtime_error("Tileset source not found for tileID: " + std::to_string(tileID));
 }
 
-sf::Image TMJParser::loadTileImage(const std::string& tilesetSource, int tileID) {
-    sf::Image tileset;
-    if (!tileset.loadFromFile(tilesetSource)) {
-        throw std::runtime_error("Unable to load tileset: " + tilesetSource);
-    }
-
-    // Calculate the position of the tile in the tileset
-    int firstGid = 1; // Default to 1 if not found (shouldn't typically happen)
-    for (size_t i = 0; i < m_firstGids.size(); ++i) {
-        if (m_tilesetSources[i] == tilesetSource) {
-            firstGid = m_firstGids[i];
-            break;
-        }
-    }
-
-    int adjustedTileID = tileID - firstGid;
-    int columns = tileset.getSize().x / 32;
-    int row = adjustedTileID / columns;
-    int col = adjustedTileID % columns;
-
-    sf::Image tile;
-    tile.create(32, 32, sf::Color::Transparent); // Ensure transparency
-    tile.copy(tileset, 0, 0, sf::IntRect(col * 32, row * 32, 32, 32), true);
-
-    return tile;
-}
 std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
     tinyxml2::XMLDocument doc;
     if (doc.LoadFile(tsxFilePath.c_str()) != tinyxml2::XML_SUCCESS) {
@@ -129,7 +110,6 @@ std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
         throw std::runtime_error("No source attribute found in image element of TSX file: " + tsxFilePath);
     }
 
-    // Get the base directory of the TSX file
     std::filesystem::path tsxPath(tsxFilePath);
     std::filesystem::path imagePath = tsxPath.parent_path() / source;
 
