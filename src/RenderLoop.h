@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
 #include "TMJParser.h"
 #include "SceneObject.h"
 
@@ -18,7 +19,7 @@ private:
     void handleEvents();
     void update();
     void render();
-    void loadLayerSprites();
+    void loadLayers();
 
     sf::RenderWindow m_window;
     sf::Event m_event;
@@ -27,5 +28,5 @@ private:
 
     const TMJParser& m_tmjParser;
     std::vector<SceneObject*> m_sceneObjects;
-    std::vector<sf::Sprite> m_layerSprites;
+    std::vector<std::shared_ptr<Layer>> m_layers;
 };

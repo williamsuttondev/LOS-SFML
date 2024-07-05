@@ -1,4 +1,5 @@
 #include "RenderLoop.h"
+#include <algorithm>
 #include <iostream>
 
 #define ENGINE_FPS 60
@@ -8,7 +9,7 @@ RenderLoop::RenderLoop(unsigned int fps, const TMJParser& tmjParser)
       m_frameTime(sf::seconds(1.0f / fps)),
       m_tmjParser(tmjParser) {
     m_engineTime = sf::seconds(1.0f / ENGINE_FPS);
-    loadLayerSprites();
+    loadLayers();
 }
 
 RenderLoop::~RenderLoop() {
@@ -73,21 +74,44 @@ void RenderLoop::render() {
     sf::RenderStates states;
     states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
 
-    // Draw layer sprites
-    for (const auto& sprite : m_layerSprites) {
-        m_window.draw(sprite, states);
+    // Sort layers based on z-depth
+    std::sort(m_layers.begin(), m_layers.end(), [](const std::shared_ptr<Layer>& a, const std::shared_ptr<Layer>& b) {
+        return a->getZDepth() < b->getZDepth();
+    });
+
+    // Define the z-depth threshold
+    const int zDepthThreshold = 1;
+
+    // Draw layer sprites with z-depth below the threshold
+    for (const auto& layer : m_layers) {
+        if (layer->getZDepth() < zDepthThreshold) {
+            for (const auto& sprite : layer->getSprites()) {
+                m_window.draw(sprite, states);
+            }
+        }
     }
 
+    // Draw scene objects
     for (SceneObject* obj : m_sceneObjects) {
-        if(obj->getType() == SceneObject::Type::Static) {
+        if (obj->getType() == SceneObject::Type::Static) {
             m_window.draw(*obj->getSprite(), states); // Use blend mode for objects as well
         } else {
             m_window.draw(*obj->getAnimatedSprite(), states); // Use blend mode for animated objects as well
         }
     }
+
+    // Draw layer sprites with z-depth equal to or above the threshold
+    for (const auto& layer : m_layers) {
+        if (layer->getZDepth() >= zDepthThreshold) {
+            for (const auto& sprite : layer->getSprites()) {
+                m_window.draw(sprite, states);
+            }
+        }
+    }
+
     m_window.display();
 }
 
-void RenderLoop::loadLayerSprites() {
-    m_layerSprites = m_tmjParser.getLayerSprites();
+void RenderLoop::loadLayers() {
+    m_layers = m_tmjParser.getLayers();
 }

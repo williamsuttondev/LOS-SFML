@@ -3,9 +3,13 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "res/Texture-Map/tile-map.tmj",
+    "activeFile": "res/Texture-Tileset/tx-props-tilesheet.tsx",
     "expandedProjectPaths": [
-        "."
+        ".",
+        "build",
+        "build/res/Texture-Tileset",
+        "build/res",
+        "build/res/Texture-Map"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -18,11 +22,11 @@
             }
         },
         "res/Texture-Map/tile-map.tmj": {
-            "scale": 3,
+            "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 194.33333333333331,
-                "y": 596.8333333333333
+                "x": 672,
+                "y": 309
             }
         },
         "res/Texture-Map/tile-map.tmx": {
@@ -99,11 +103,18 @@
     "map.lastUsedFormat": "json",
     "map.width": 40,
     "openFiles": [
-        "res/Texture-Map/tile-map.tmj"
+        "res/Texture-Map/tile-map.tmj",
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx",
+        "res/Texture-Tileset/tx-plant-tilesheet.tsx",
+        "res/Texture-Tileset/tx-props-tilesheet.tsx"
     ],
     "project": "map-editor.tiled-project",
+    "property.type": "int",
     "recentFiles": [
         "res/Texture-Map/tile-map.tmj",
+        "res/Texture-Tileset/tx-grass-tilesheet.tsx",
+        "res/Texture-Tileset/tx-plant-tilesheet.tsx",
+        "res/Texture-Tileset/tx-props-tilesheet.tsx",
         "res/Texture-Map/tile-map.tmx",
         "res/Texture-Tileset/texture-tilesheet.tsx",
         "res/Texture-Tilesheet/combined_tilesheet.tsx",
@@ -111,10 +122,7 @@
         "res/Texture-Tileset/tx-struct-tilesheet.tsx",
         "res/Texture-Tileset/tx-stone-ground-tilesheet.tsx",
         "res/Texture-Tileset/tx-shadow-tilesheet.tsx",
-        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx",
-        "res/Texture-Tileset/tx-grass-tilesheet.tsx",
-        "res/Texture-Tileset/tx-props-tilesheet.tsx",
-        "res/Texture-Tileset/tx-plant-tilesheet.tsx"
+        "res/Texture-Tileset/tx-shadow-plant-tilesheet.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.type": 0

@@ -36,6 +36,12 @@
          "id":20,
          "name":"Tile Layer 1",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"z-depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":40,
@@ -76,6 +82,12 @@
          "id":21,
          "name":"Tile Layer 2",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"z-depth",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":40,

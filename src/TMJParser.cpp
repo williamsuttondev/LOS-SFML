@@ -22,8 +22,8 @@ TMJParser::TMJParser(const std::string& filePath) {
     parseLayers();
 }
 
-const std::vector<sf::Sprite>& TMJParser::getLayerSprites() const {
-    return m_layerSprites;
+const std::vector<std::shared_ptr<Layer>>& TMJParser::getLayers() const {
+    return m_layers;
 }
 
 void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
@@ -56,6 +56,17 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
     int width = layer["width"].get<int>();
     int height = layer["height"].get<int>();
     const nlohmann::json& data = layer["data"];
+    int zDepth = 0; // Default z-depth
+
+    if (layer.contains("properties")) {
+        for (const auto& property : layer["properties"]) {
+            if (property["name"].get<std::string>() == "z-depth") {
+                zDepth = property["value"].get<int>();
+            }
+        }
+    }
+
+    auto layerPtr = std::make_shared<Layer>(zDepth);
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
@@ -85,9 +96,11 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
             sprite.setTexture(tilesetTexture);
             sprite.setTextureRect(sf::IntRect(col * 32, row * 32, 32, 32));
             sprite.setPosition(static_cast<float>(x * 32), static_cast<float>(y * 32));
-            m_layerSprites.push_back(sprite);
+            layerPtr->addSprite(sprite);
         }
     }
+
+    m_layers.push_back(layerPtr);
 }
 
 std::string TMJParser::getTilesetImageSource(const std::string& tsxFilePath) {
