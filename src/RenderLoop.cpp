@@ -71,7 +71,8 @@ void RenderLoop::render() {
     m_window.clear(sf::Color::Transparent);
 
     sf::RenderStates states;
-    states.blendMode = sf::BlendNone;
+    states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
+
     // Draw layer sprites
     for (const auto& sprite : m_layerSprites) {
         m_window.draw(sprite, states);
@@ -79,9 +80,9 @@ void RenderLoop::render() {
 
     for (SceneObject* obj : m_sceneObjects) {
         if(obj->getType() == SceneObject::Type::Static) {
-            m_window.draw(*obj->getSprite());
+            m_window.draw(*obj->getSprite(), states); // Use blend mode for objects as well
         } else {
-            m_window.draw(*obj->getAnimatedSprite());
+            m_window.draw(*obj->getAnimatedSprite(), states); // Use blend mode for animated objects as well
         }
     }
     m_window.display();

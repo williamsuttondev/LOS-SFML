@@ -36,6 +36,7 @@ void TMJParser::parseTilesets(const std::filesystem::path& baseDir) {
         if (!texture.loadFromFile(imageSource)) {
             throw std::runtime_error("Unable to load tileset image: " + imageSource);
         }
+        texture.setSmooth(false);
         m_tilesetTextures.push_back(std::move(texture));
         
         m_tilesetSources.push_back(imageSource);
@@ -65,7 +66,6 @@ void TMJParser::parseTileLayer(const nlohmann::json& layer) {
                 continue;
             }
 
-            // Determine the correct tileset and texture for the current tileID
             size_t tilesetIndex = 0;
             for (size_t i = 0; i < m_firstGids.size(); ++i) {
                 if (tileID >= m_firstGids[i] && (i == m_firstGids.size() - 1 || tileID < m_firstGids[i + 1])) {
