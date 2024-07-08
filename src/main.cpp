@@ -67,7 +67,7 @@ int main() {
     SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
 
     TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
-    RenderLoop renderLoop(CHARACTER_FPS, tmjparser);
+    RenderLoop renderLoop(CHARACTER_FPS);
 
     
 
@@ -76,9 +76,9 @@ int main() {
     state.addObject(sceneObject);
 
     renderLoop.setState(&state);
-    renderLoop.run2();
+    renderLoop.run();
 
-    cleanup(renderLoop.getSceneObjects());
+    // cleanup(renderLoop.getSceneObjects()); // implement for state 
 
     // My test code 
 
