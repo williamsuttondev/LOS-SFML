@@ -31,3 +31,5 @@ void RenderLoop::run() {
 
 void RenderLoop::setState(State* state){m_currentState = state;}
 State* RenderLoop::getState(){return m_currentState;}
+
+sf::RenderWindow& RenderLoop::getWindow(){return m_window;}

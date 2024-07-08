@@ -18,6 +18,7 @@ public:
     void setState(State* state);
     State* getState();
 
+    sf::RenderWindow& getWindow();
 
 private:
 

@@ -1,11 +1,25 @@
 #include "MenuState.h"
 
-
+#include "Colliders.h"
 
 void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
 
-   std::cout << sf::Mouse::getPosition(*window).x << "," <<  sf::Mouse::getPosition(*window).y << std::endl;
 
+
+   Rectangle mouseCollider = Rectangle(
+    sf::Mouse::getPosition(*window).x,
+    sf::Mouse::getPosition(*window).y,
+    20,20
+    );
+
+    for(ClickableButton button: m_menuButtons){
+
+        if(Colliders::isRectCollision(mouseCollider,button.getBoxCollider()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                button.onClick();
+        }
+    }
+
+    
 }
 
 void MenuState::render(sf::RenderWindow* window){
@@ -16,9 +30,10 @@ void MenuState::render(sf::RenderWindow* window){
     states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
 
     window->draw(m_backgroundImage);
-    window->draw(m_startGame.getSprite());
-    window->draw(m_settings.getSprite());
-    window->draw(m_exit.getSprite());
+    
+    for(ClickableButton button: m_menuButtons){
+        window->draw(button.getSprite());
+    }
 
     window->display();
 
