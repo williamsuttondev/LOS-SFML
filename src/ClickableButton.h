@@ -27,9 +27,35 @@ public:
         m_yPos = y;
         setTexture(textureFileName);  
         setSprite();    
-
     }
 
+    ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider){
+        m_xPos = x;
+        m_yPos = y;
+        setTexture(textureFileName);  
+        setSprite();    
+        setBoxCollider(boxCollider);
+    }
+
+    ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*m_clickFunc)()){
+        m_xPos = x;
+        m_yPos = y;
+        setTexture(textureFileName);  
+        setSprite();    
+        setBoxCollider(boxCollider);
+        setClickFunction(m_clickFunc);
+    }
+
+
+    ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(), void (*hoverFunc)()){
+        m_xPos = x;
+        m_yPos = y;
+        setTexture(textureFileName);  
+        setSprite();    
+        setBoxCollider(boxCollider);
+        setClickFunction(clickFunc);
+        setHoverFunction(hoverFunc);
+    }
 
     // Setters
 
@@ -49,11 +75,11 @@ public:
 
     void onClick();
 
-    void onClick(void (*funcPtr)());
-
     void onHover();
 
-    void onHover(void (*funcPtr)());
+    void setClickFunction(void (*funcPtr)());
+
+    void setHoverFunction(void (*funcPtr)());
 
     // Overloaded functions
 

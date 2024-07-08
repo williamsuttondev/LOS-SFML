@@ -4,7 +4,7 @@
 
 void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
 
-
+   std::cout << sf::Mouse::getPosition(*window).x << "," <<  sf::Mouse::getPosition(*window).y << std::endl;
 
 }
 

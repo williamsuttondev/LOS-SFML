@@ -1,25 +1,14 @@
 #include "ClickableButton.h"
 
 
-void ClickableButton::onClick(){
-
+void ClickableButton::setClickFunction(void (*funcPtr)()){
+        m_clickFunc = funcPtr;
 }
 
-void ClickableButton::onClick(void (*funcPtr)()){
-
-
-
+void ClickableButton::setHoverFunction(void (*funcPtr)()){
+        m_hoverFunc = funcPtr;
 }
 
-void ClickableButton::onHover(){
-
-
-
-}
-
-void ClickableButton::onHover(void (*funcPtr)()){
-
-}
 
 
 Rectangle& ClickableButton::getBoxCollider(){return m_boxCollider;}
