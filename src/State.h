@@ -7,7 +7,7 @@ class RenderLoop; // Forward declaration to avoid circular dependancy
 
 class State {
 
-private:
+protected:
 
     RenderLoop* m_renderLoop; // Renderloop reference to change state
     std::vector<SceneObject*> m_sceneObjects;
@@ -16,34 +16,36 @@ private:
 
 public:
 
-    std::string f = "Hello world!";
+
 
     State(){}
     State(RenderLoop* m_renderLoop){}
 
-    void handleEvents();
-    void update();
+    virtual void handleEvents();
+    virtual void handleEvents( sf::RenderWindow* window, sf::Event* event);
+    virtual void update();
 
-    void update(void (*func)()); // general logic usage of function pointer
+    virtual void update(void (*func)()); // general logic usage of function pointer
 
     // Possible usages for timings and/or player placements
-    void update(void (*func)(float));
-    void update(void (*func)(float,float));
+    virtual void update(void (*func)(float));
+    virtual void update(void (*func)(float,float));
 
-    void render();
-    void render(std::vector<sf::Sprite> sprites);
-    void render(std::vector<SceneObject> sprites);
+    virtual void render();
+    virtual void render(sf::RenderWindow* window);
 
-
-    void changeState();
-    void changeState(State* state);
-    void cleanUp(); // Here in case states alloc to the heap
+    virtual void changeState();
+    virtual void changeState(State* state);
+    virtual void cleanUp(); // Here in case states alloc to the heap
 
 
-    std::vector<SceneObject*> getSceneObjects();
-    std::vector<sf::Sprite> getLayerSprites();
+    virtual std::vector<SceneObject*> getSceneObjects();
+    virtual std::vector<sf::Sprite> getLayerSprites();
 
-    void setSceneObjects(std::vector<SceneObject*> sceneObjects);
-    void setLayerSprites(std::vector<sf::Sprite> LayerSprites);
+    virtual void setSceneObjects(std::vector<SceneObject*> sceneObjects);
+    virtual void setLayerSprites(std::vector<sf::Sprite> LayerSprites);
+
+
+    virtual void addObject(SceneObject* obj);
 
 };

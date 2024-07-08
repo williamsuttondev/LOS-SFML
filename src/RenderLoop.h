@@ -40,4 +40,5 @@ private:
     std::vector<SceneObject*> m_sceneObjects;
     std::vector<sf::Sprite> m_layerSprites;
     
+    
 };

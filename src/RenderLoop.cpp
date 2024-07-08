@@ -48,14 +48,14 @@ void RenderLoop::run2() {
 
     while (m_window.isOpen()) {
         if(eventClock.getElapsedTime() >= m_engineTime) {
-            m_currentState->handleEvents();
+            m_currentState->handleEvents(&m_window, &m_event);
             eventClock.restart();
         }
         if (updateClock.getElapsedTime() >= m_frameTime) {
             m_currentState->update();
             updateClock.restart(); // Restart the update clock
         }
-        m_currentState->render();
+        m_currentState->render(&m_window);
     }
 
 }

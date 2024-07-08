@@ -1,11 +1,11 @@
 
 #include "RenderLoop.h"
-#include "State.h"
 #include "TileSheetManager.h"
 #include <iostream>
 #include "TMJParser.h"
 #include "ClickableButton.h"
 #include <SFML/Graphics.hpp>
+#include "GameState.h"
 
 #define CHARACTER_FPS 12
 
@@ -47,13 +47,8 @@ void cleanup(std::vector<SceneObject*>& objects) {
 }
 
 int main() {
-    // sf::Texture texture;
-    // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
-    //     std::cerr << "Error loading texture" << std::endl;
-    // }
-    // AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
-    // animatedSprite->setScale(0.5, 0.5);
-    // SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+    
+    
     
     // RenderLoop renderLoop(CHARACTER_FPS, tmjparser);
     // renderLoop.addObject(sceneObject);
@@ -62,12 +57,28 @@ int main() {
 
     // My test code 
 
+    sf::Texture texture;
+    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+        std::cerr << "Error loading texture" << std::endl;
+    }
+
+    AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+    animatedSprite->setScale(0.5, 0.5);
+    SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+
     TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
     RenderLoop renderLoop(CHARACTER_FPS, tmjparser);
-    State state = State(&renderLoop);
+
+    
+
+    GameState state = GameState(&renderLoop);
+    state.loadLayerSprites(tmjparser);
+    state.addObject(sceneObject);
 
     renderLoop.setState(&state);
     renderLoop.run2();
+
+    cleanup(renderLoop.getSceneObjects());
 
     // My test code 
 
