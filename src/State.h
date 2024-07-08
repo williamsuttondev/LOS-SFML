@@ -31,4 +31,9 @@ public:
     void render(std::vector<sf::Sprite> sprites);
     void render(std::vector<SceneObject> sprites);
 
+
+    void changeState();
+    void changeState(State* state);
+    void cleanUp(); // Here in case states alloc to the heap
+
 };

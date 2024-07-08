@@ -26,3 +26,14 @@ void State::render(std::vector<sf::Sprite> sprites){
 void State::render(std::vector<SceneObject> sprites){
     std::cout << "Render function is to be implemented in a child class" << std::endl;
 } 
+
+void State::changeState(){
+    std::cout << "changeState function is to be implemented in a child class" << std::endl;
+}
+void State::changeState(State* state){
+    std::cout << "changeState function is to be implemented in a child class" << std::endl;
+}
+void State::cleanUp(){
+    std::cout << "cleanUp function is to be implemented in a child class" << std::endl;
+}
+
