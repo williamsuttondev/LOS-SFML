@@ -4,7 +4,7 @@
 
 void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
 
-    
+
 
 }
 
@@ -15,8 +15,10 @@ void MenuState::render(sf::RenderWindow* window){
     sf::RenderStates states;
     states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
 
-    window->draw(foo.getSprite());
-
+    window->draw(m_backgroundImage);
+    window->draw(m_startGame.getSprite());
+    window->draw(m_settings.getSprite());
+    window->draw(m_exit.getSprite());
 
     window->display();
 

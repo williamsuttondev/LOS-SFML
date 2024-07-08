@@ -6,6 +6,7 @@
 #include "ClickableButton.h"
 #include <SFML/Graphics.hpp>
 #include "MenuState.h"
+#include "GameState.h"
 
 #define CHARACTER_FPS 12
 
@@ -81,7 +82,7 @@ int main() {
 
     RenderLoop renderLoop(CHARACTER_FPS);
     
-    MenuState state = MenuState();
+    MenuState state = MenuState("res/Temp/Menu.jpg");
 
     renderLoop.setState(&state);
 
