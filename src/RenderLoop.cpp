@@ -41,6 +41,26 @@ void RenderLoop::run() {
     }
 }
 
+void RenderLoop::run2() {
+
+    sf::Clock updateClock; // Clock for tracking the update interval
+    sf::Clock eventClock;
+
+    while (m_window.isOpen()) {
+        if(eventClock.getElapsedTime() >= m_engineTime) {
+            m_currentState->handleEvents();
+            eventClock.restart();
+        }
+        if (updateClock.getElapsedTime() >= m_frameTime) {
+            m_currentState->update();
+            updateClock.restart(); // Restart the update clock
+        }
+        m_currentState->render();
+    }
+
+}
+
+
 void RenderLoop::handleEvents() {
     while (m_window.pollEvent(m_event)) {
         switch (m_event.type) {
@@ -58,6 +78,9 @@ void RenderLoop::handleEvents() {
         }
     }
 }
+
+
+
 
 void RenderLoop::update() {
     for(SceneObject* obj : m_sceneObjects) {
@@ -91,3 +114,7 @@ void RenderLoop::render() {
 void RenderLoop::loadLayerSprites() {
     m_layerSprites = m_tmjParser.getLayerSprites();
 }
+
+
+void RenderLoop::setState(State* state){m_currentState = state;}
+State* RenderLoop::getState(){return m_currentState;}

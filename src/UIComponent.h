@@ -25,7 +25,7 @@ public:
     // Setters
 
     // Getters
-    const sf::Sprite&  getSprite();
+    const sf::Sprite& getSprite();
 
     sf::Texture& getTexture();
 
