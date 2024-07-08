@@ -82,9 +82,11 @@ int main() {
 
     RenderLoop renderLoop(CHARACTER_FPS);
     
-    MenuState state = MenuState("res/Temp/Menu.jpg");
+    std::shared_ptr<MenuState> state = std::make_shared<MenuState>("res/Temp/Menu.jpg");
 
-    renderLoop.setState(&state);
+    // MenuState state = MenuState("res/Temp/Menu.jpg");
+
+    renderLoop.setState(state);
 
     renderLoop.run();
 

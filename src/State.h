@@ -16,13 +16,12 @@ protected:
 
 public:
 
-
-
     State(){}
     State(RenderLoop* m_renderLoop){}
 
     virtual void handleEvents();
     virtual void handleEvents( sf::RenderWindow* window, sf::Event* event);
+    virtual void handleEvents( sf::RenderWindow* window, sf::Event* event, RenderLoop* renderLoop);
     virtual void update();
 
     virtual void update(void (*func)()); // general logic usage of function pointer

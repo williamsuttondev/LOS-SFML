@@ -2,9 +2,13 @@
 
 #include "Colliders.h"
 
+
 void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
 
+    
+}
 
+void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event, RenderLoop* renderLoop){
 
    Rectangle mouseCollider = Rectangle(
     sf::Mouse::getPosition(*window).x,
@@ -13,9 +17,24 @@ void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
     );
 
     for(ClickableButton button: m_menuButtons){
-
+        
         if(Colliders::isRectCollision(mouseCollider,button.getBoxCollider()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                button.onClick();
+                switch (button.getGUID()) // could use an enum here that could be better for extending function ptr variants
+                {
+
+                case 0:
+                    button.onClick();
+                    break;
+                case 1:
+                    button.onClick(window);
+                    break;
+                case 2:
+                    button.onClick(renderLoop);
+                break;
+                
+                default:
+                    break;
+                }
         }
     }
 

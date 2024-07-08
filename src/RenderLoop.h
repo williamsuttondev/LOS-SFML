@@ -5,7 +5,7 @@
 #include "TMJParser.h"
 #include "SceneObject.h"
 #include "State.h"
-
+#include <memory>
 
 class RenderLoop {
 public:
@@ -15,14 +15,14 @@ public:
     void addObject(SceneObject* obj);
     void run();
 
-    void setState(State* state);
-    State* getState();
+    void setState(std::shared_ptr<State> state);
+    std::shared_ptr<State> getState();
 
     sf::RenderWindow& getWindow();
 
 private:
 
-    State* m_currentState;
+    std::shared_ptr<State> m_currentState;
     sf::RenderWindow m_window;
     sf::Event m_event;
     sf::Time m_frameTime;

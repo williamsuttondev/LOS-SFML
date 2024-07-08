@@ -3,6 +3,8 @@
 
 void State::handleEvents(){}
 void State::handleEvents( sf::RenderWindow* window, sf::Event* event){}
+void State::handleEvents( sf::RenderWindow* window, sf::Event* event, RenderLoop* renderLoop){}
+
 
 
 void State::update(){}

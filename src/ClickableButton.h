@@ -14,7 +14,7 @@ private:
 
 
     Rectangle m_boxCollider;
-
+    int m_GUID;
 
 public:
 
@@ -25,6 +25,7 @@ public:
 
         m_xPos = x;
         m_yPos = y;
+        m_GUID = -1;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName){
@@ -32,6 +33,7 @@ public:
         m_yPos = y;
         setTexture(textureFileName);  
         setSprite();    
+        m_GUID = -1;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider){
@@ -40,6 +42,7 @@ public:
         setTexture(textureFileName);  
         setSprite();    
         setBoxCollider(boxCollider);
+        m_GUID = -1;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*m_clickFunc)()){
@@ -49,6 +52,7 @@ public:
         setSprite();    
         setBoxCollider(boxCollider);
         setClickFunction(m_clickFunc);
+        m_GUID = 0;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(sf::RenderWindow* window)){
@@ -58,6 +62,7 @@ public:
         setSprite();    
         setBoxCollider(boxCollider);
         setClickFunction(clickFunc);
+        m_GUID = 1;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(), void (*hoverFunc)(sf::RenderWindow* window)){
@@ -68,6 +73,7 @@ public:
         setBoxCollider(boxCollider);
         setClickFunction(clickFunc);
         setHoverFunction(hoverFunc);
+        m_GUID = 1;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(sf::RenderWindow* window), void (*hoverFunc)(sf::RenderWindow* window)){
@@ -78,6 +84,17 @@ public:
         setBoxCollider(boxCollider);
         setClickFunction(clickFunc);
         setHoverFunction(hoverFunc);
+        m_GUID = 1;
+    }
+
+    ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(RenderLoop* renderLoop)){
+        m_xPos = x;
+        m_yPos = y;
+        setTexture(textureFileName);  
+        setSprite();    
+        setBoxCollider(boxCollider);
+        setClickFunction(clickFunc);
+        m_GUID = 2;
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName, Rectangle boxCollider, void (*clickFunc)(RenderLoop* renderLoop), void (*hoverFunc)(RenderLoop* renderLoop)){
@@ -88,19 +105,20 @@ public:
         setBoxCollider(boxCollider);
         setClickFunction(clickFunc);
         setHoverFunction(hoverFunc);
+        m_GUID = 2;
     }
 
 
     // Setters
 
-
+    void setGUID(int GUID);
     void setBoxCollider(Rectangle r);
 
     // Setters
 
     // Getters
 
-
+    int getGUID();
     Rectangle& getBoxCollider();
 
     // Getters
@@ -118,6 +136,8 @@ public:
     //          You WILL have to go to Clickable.h and add your variables to hold your corresponding function pointer to extend this functionality
     //          You WILL also have to go to the constructor definitions and add ones that allow for your specfic function pointer types. Luckily examples are in this file above, but it is cumbersome
     //
+    //          This is getting less maintainable as I go along... You will need to add an ID to your constructor so you can tell what onclick function to use. Unless you can think of some other way
+    // 
     //       Base pair of onclick with corresponding empty void function
     /**/     void onClick();
     /**/     void setClickFunction(void (*funcPtr)());

@@ -17,7 +17,7 @@ void RenderLoop::run() {
 
     while (m_window.isOpen()) {
         if(eventClock.getElapsedTime() >= m_engineTime) {
-            m_currentState->handleEvents(&m_window, &m_event);
+            m_currentState->handleEvents(&m_window, &m_event, this);
             eventClock.restart();
         }
         if (updateClock.getElapsedTime() >= m_frameTime) {
@@ -29,7 +29,7 @@ void RenderLoop::run() {
 
 }
 
-void RenderLoop::setState(State* state){m_currentState = state;}
-State* RenderLoop::getState(){return m_currentState;}
+void RenderLoop::setState(std::shared_ptr<State> state){m_currentState = state;}
+std::shared_ptr<State> RenderLoop::getState(){return m_currentState;}
 
 sf::RenderWindow& RenderLoop::getWindow(){return m_window;}
