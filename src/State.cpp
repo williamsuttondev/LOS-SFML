@@ -37,3 +37,20 @@ void State::cleanUp(){
     std::cout << "cleanUp function is to be implemented in a child class" << std::endl;
 }
 
+std::vector<SceneObject*> State::getSceneObjects(){
+    std::cout << "getSceneObjects function is to be implemented in a child class" << std::endl;
+    m_sceneObjects;
+}
+
+std::vector<sf::Sprite> State::getLayerSprites(){
+    std::cout << "getLayerSprites function is to be implemented in a child class" << std::endl;
+    return m_layerSprites;
+}
+
+void State::setSceneObjects(std::vector<SceneObject*> sceneObjects){
+    std::cout << "setSceneObjects function is to be implemented in a child class" << std::endl;
+}
+void State::setLayerSprites(std::vector<sf::Sprite> LayerSprites){
+    std::cout << "setLayerSprites function is to be implemented in a child class" << std::endl;
+}
+

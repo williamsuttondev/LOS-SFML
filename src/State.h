@@ -10,6 +10,9 @@ class State {
 private:
 
     RenderLoop* m_renderLoop; // Renderloop reference to change state
+    std::vector<SceneObject*> m_sceneObjects;
+    std::vector<sf::Sprite> m_layerSprites;
+    
 
 public:
 
@@ -35,5 +38,12 @@ public:
     void changeState();
     void changeState(State* state);
     void cleanUp(); // Here in case states alloc to the heap
+
+
+    std::vector<SceneObject*> getSceneObjects();
+    std::vector<sf::Sprite> getLayerSprites();
+
+    void setSceneObjects(std::vector<SceneObject*> sceneObjects);
+    void setLayerSprites(std::vector<sf::Sprite> LayerSprites);
 
 };

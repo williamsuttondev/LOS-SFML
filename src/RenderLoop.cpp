@@ -79,9 +79,6 @@ void RenderLoop::handleEvents() {
     }
 }
 
-
-
-
 void RenderLoop::update() {
     for(SceneObject* obj : m_sceneObjects) {
         if(obj->getType() == SceneObject::Type::Animated) {
