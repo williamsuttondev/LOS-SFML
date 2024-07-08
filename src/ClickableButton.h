@@ -23,7 +23,7 @@ public:
     }
 
     ClickableButton(float x, float y, std::string_view textureFileName){
-
+        system("ls");
         m_xPos = x;
         m_yPos = y;
         setTexture(textureFileName);  

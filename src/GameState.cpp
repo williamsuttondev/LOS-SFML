@@ -32,6 +32,7 @@ void GameState::update(){
 }
 
 void GameState::render(){}
+
 void GameState::render(sf::RenderWindow* window){
     window->clear(sf::Color::Transparent);
 

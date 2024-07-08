@@ -5,7 +5,7 @@
 #include "TMJParser.h"
 #include "ClickableButton.h"
 #include <SFML/Graphics.hpp>
-#include "GameState.h"
+#include "MenuState.h"
 
 #define CHARACTER_FPS 12
 
@@ -49,38 +49,45 @@ void cleanup(std::vector<SceneObject*>& objects) {
 int main() {
     
     
+    // gameState example
+
+    // sf::Texture texture;
+    // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+    //     std::cerr << "Error loading texture" << std::endl;
+    // }
+
+    // AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+    // animatedSprite->setScale(0.5, 0.5);
+    // SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+
+    // TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
+    // RenderLoop renderLoop(CHARACTER_FPS);
+
     
-    // RenderLoop renderLoop(CHARACTER_FPS, tmjparser);
-    // renderLoop.addObject(sceneObject);
+
+    // GameState state = GameState(&renderLoop);
+    // state.loadLayerSprites(tmjparser);
+    // state.addObject(sceneObject);
+
+    // renderLoop.setState(&state);
     // renderLoop.run();
-    // cleanup(renderLoop.getSceneObjects());
-
-    // My test code 
-
-    sf::Texture texture;
-    if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
-        std::cerr << "Error loading texture" << std::endl;
-    }
-
-    AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
-    animatedSprite->setScale(0.5, 0.5);
-    SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
-
-    TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
-    RenderLoop renderLoop(CHARACTER_FPS);
-
-    
-
-    GameState state = GameState(&renderLoop);
-    state.loadLayerSprites(tmjparser);
-    state.addObject(sceneObject);
-
-    renderLoop.setState(&state);
-    renderLoop.run();
 
     // cleanup(renderLoop.getSceneObjects()); // implement for state 
 
-    // My test code 
+    // gameState example
+
+
+    // MenuState example
+
+    RenderLoop renderLoop(CHARACTER_FPS);
+    
+    MenuState state = MenuState();
+
+    renderLoop.setState(&state);
+
+    renderLoop.run();
+
+    // MenuState example
 
     return 0;
 }
