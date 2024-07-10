@@ -5,6 +5,7 @@
 #include <iostream>
 
 class GameState : public State{
+// GameState isnt modular, only handles one level. However, multiple level support could EASILY be implemented
 
 private:
 
