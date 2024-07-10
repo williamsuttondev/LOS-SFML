@@ -3,10 +3,7 @@
 #include "Colliders.h"
 
 
-void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){
-
-    
-}
+void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event){}
 
 void MenuState::handleEvents(sf::RenderWindow* window, sf::Event* event, RenderLoop* renderLoop){
 

@@ -18,8 +18,9 @@ void GameState::handleEvents(sf::RenderWindow* window, sf::Event* event){
     for (SceneObject* obj : m_sceneObjects) {
         
         if(obj->isPlayerControlled()) {
+            std::cout << "Yes "<< std::endl;
             obj->cllCtrlFunction();
-        }
+        }else{std::cout << "obj->isPlayerControlled(): " << obj->isPlayerControlled() << std::endl;}
     }
 }
 
@@ -35,7 +36,7 @@ void GameState::render(){}
 
 void GameState::render(sf::RenderWindow* window){
     window->clear(sf::Color::Transparent);
-
+    
     sf::RenderStates states;
     states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
 

@@ -17,7 +17,11 @@ void RenderLoop::run() {
 
     while (m_window.isOpen()) {
         if(eventClock.getElapsedTime() >= m_engineTime) {
+            // Allows both versions on State::handleEvent to be called irregardless of implemented function
+            m_currentState->handleEvents(&m_window, &m_event);
             m_currentState->handleEvents(&m_window, &m_event, this);
+            // Allows both versions on State::handleEvent to be called irregardless of implemented function
+            
             eventClock.restart();
         }
         if (updateClock.getElapsedTime() >= m_frameTime) {

@@ -9,49 +9,22 @@ class MenuState : public State{
 
 private:
 
-static void playerControlFunction(SceneObject& obj) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 5, obj.getAnimatedSprite()->getPosition().y);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-right") {
-            obj.getAnimatedSprite()->setAction("walk-right");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 5, obj.getAnimatedSprite()->getPosition().y);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-left") {
-            obj.getAnimatedSprite()->setAction("walk-left");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 5);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-away") {
-            obj.getAnimatedSprite()->setAction("walk-away");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 5);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-towards") {
-            obj.getAnimatedSprite()->setAction("walk-towards");
-        }
-    }
-}
-
     static void changeToGameState(RenderLoop* renderLoop){
 
-        sf::Texture texture;
-        if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
-            std::cerr << "Error loading texture" << std::endl;
-        }
-        system("ls");
-        AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
-        animatedSprite->setScale(0.5, 0.5);
-        SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+        // sf::Texture texture;
+        // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
+        //     std::cerr << "Error loading texture" << std::endl;
+        // }
 
-        TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
+        // AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
+        // animatedSprite->setScale(0.5, 0.5);
+        // SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
+
+        // TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
      
         std::shared_ptr<GameState> state = std::make_shared<GameState>(renderLoop);
-        state->loadLayerSprites(tmjparser);
-        state->addObject(sceneObject);
+        // state->loadLayerSprites(tmjparser);
+        // state->addObject(sceneObject);
 
         renderLoop->setState(state);
         
@@ -59,7 +32,7 @@ static void playerControlFunction(SceneObject& obj) {
     }
 
     static void changeToSettingsState(RenderLoop* renderLoop){
-        std::cout << "Nope, no its not" << std::endl;
+        std::cout << "Empty" << std::endl;
     }
 
     static void exitProgram(sf::RenderWindow* window){
