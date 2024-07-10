@@ -18,7 +18,6 @@ void GameState::handleEvents(sf::RenderWindow* window, sf::Event* event){
     for (SceneObject* obj : m_sceneObjects) {
         
         if(obj->isPlayerControlled()) {
-            std::cout << "Yes "<< std::endl;
             obj->cllCtrlFunction();
         }else{std::cout << "obj->isPlayerControlled(): " << obj->isPlayerControlled() << std::endl;}
     }
@@ -32,11 +31,15 @@ void GameState::update(){
     }
 }
 
-void GameState::render(){}
+void GameState::render(){
+
+    std::cout << "Non implemented render function being called" << std::endl;
+
+}
 
 void GameState::render(sf::RenderWindow* window){
     window->clear(sf::Color::Transparent);
-    
+
     sf::RenderStates states;
     states.blendMode = sf::BlendAlpha;  // Use sf::BlendAlpha to handle transparency correctly
 
@@ -74,4 +77,32 @@ void GameState::loadLayerSprites(TMJParser tmjParser)
 
 void GameState::addObject(SceneObject* obj) {
     m_sceneObjects.push_back(obj);
+}
+
+
+void GameState::playerControlFunction(SceneObject& obj) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 5, obj.getAnimatedSprite()->getPosition().y);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-right") {
+            obj.getAnimatedSprite()->setAction("walk-right");
+        }
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 5, obj.getAnimatedSprite()->getPosition().y);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-left") {
+            obj.getAnimatedSprite()->setAction("walk-left");
+        }
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 5);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-away") {
+            obj.getAnimatedSprite()->setAction("walk-away");
+        }
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 5);
+        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-towards") {
+            obj.getAnimatedSprite()->setAction("walk-towards");
+        }
+    }
 }

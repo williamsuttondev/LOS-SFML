@@ -8,46 +8,12 @@ class GameState : public State{
 
 private:
 
-static void playerControlFunction(SceneObject& obj) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x + 5, obj.getAnimatedSprite()->getPosition().y);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-right") {
-            obj.getAnimatedSprite()->setAction("walk-right");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x - 5, obj.getAnimatedSprite()->getPosition().y);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-left") {
-            obj.getAnimatedSprite()->setAction("walk-left");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y - 5);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-away") {
-            obj.getAnimatedSprite()->setAction("walk-away");
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        obj.getAnimatedSprite()->setPosition(obj.getAnimatedSprite()->getPosition().x, obj.getAnimatedSprite()->getPosition().y + 5);
-        if(obj.getAnimatedSprite()->getConfig()->getActionName() != "walk-towards") {
-            obj.getAnimatedSprite()->setAction("walk-towards");
-        }
-    }
-}
+    static void playerControlFunction(SceneObject& obj);
 
     sf::Texture m_texture;
     AnimatedSprite* m_animatedSprite;
+    TMJParser tmjparser = TMJParser("res/Texture-Map/tile-map.tmj"); // really didnt wanna do this 
 
-
-        // if (!texture.loadFromFile("res/sprite_config/sprite.png")) {
-        //     std::cerr << "Error loading texture" << std::endl;
-        // }
-
-        // AnimatedSprite* animatedSprite = new AnimatedSprite("res/sprite_config/sprite_config.json", texture);
-        // animatedSprite->setScale(0.5, 0.5);
-        // SceneObject* sceneObject = new SceneObject(animatedSprite, true, playerControlFunction);
-
-        // TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
 public:
 
     GameState(){}
@@ -61,9 +27,11 @@ public:
         m_animatedSprite->setScale(0.5, 0.5);
         SceneObject* sceneObject = new SceneObject(m_animatedSprite, true, playerControlFunction);
         
-        TMJParser tmjparser("res/Texture-Map/tile-map.tmj");
+        
 
-        loadLayerSprites(tmjparser);
+        // loadLayerSprites(tmjparser);
+
+        m_layerSprites = tmjparser.getLayerSprites();
         addObject(sceneObject);
         
 
