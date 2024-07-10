@@ -19,7 +19,7 @@ public:
     GameState(){}
 
     GameState(RenderLoop* m_renderLoop){
-         if (!m_texture.loadFromFile("res/sprite_config/sprite.png")) {
+        if (!m_texture.loadFromFile("res/sprite_config/sprite.png")) {
             std::cerr << "Error loading texture" << std::endl;
         }
 
@@ -27,13 +27,8 @@ public:
         m_animatedSprite->setScale(0.5, 0.5);
         SceneObject* sceneObject = new SceneObject(m_animatedSprite, true, playerControlFunction);
         
-        
-
-        // loadLayerSprites(tmjparser);
-
-        m_layerSprites = tmjparser.getLayerSprites();
+        loadLayerSprites(tmjparser);
         addObject(sceneObject);
-        
 
     }
 
